@@ -69,26 +69,44 @@
 
     <main class="flex-grow pt-24">
         <!-- 英雄區塊 (Hero Section) - 留白與大字體 -->
-        <section class="max-w-7xl mx-auto px-6 lg:px-12 py-24 md:py-32 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center fade-in" style="animation-delay: 0.1s;">
-            <div class="flex flex-col items-start">
+        <section class="max-w-7xl mx-auto px-6 lg:px-12 py-24 md:py-32 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center fade-in" style="animation-delay: 0.1s;">
+            <div class="flex flex-col items-start w-full">
                 <p class="text-brand-accent font-medium tracking-[0.2em] uppercase text-sm mb-6">Graphic Design Portfolio</p>
-                <h1 class="text-5xl md:text-7xl lg:text-7xl font-serif font-bold leading-[1.1] mb-8 tracking-tight">
-                    游佳柔 <br class="hidden lg:block"><span class="text-gray-300 font-sans font-light hidden lg:inline">|</span> Essie
+                
+                <!-- 手機版：名字與照片並排 -->
+                <div class="flex flex-row items-center justify-between w-full lg:hidden mb-8 gap-4 sm:gap-6">
+                    <h1 class="text-[2.75rem] leading-[1.1] sm:text-6xl font-serif font-bold tracking-tight text-brand-text">
+                        游佳柔 <br> Essie
+                    </h1>
+                    <div class="relative w-32 sm:w-48 aspect-[3/4] shrink-0">
+                        <div class="absolute inset-0 border border-brand-accent/30 rounded-tl-[2rem] rounded-br-[2rem] transform translate-x-2 translate-y-2"></div>
+                        <div class="relative w-full h-full overflow-hidden rounded-tl-[2rem] rounded-br-[2rem] shadow-lg bg-white">
+                            <img src="assets/images/profile.jpg" alt="Essie Yu 游佳柔" class="w-full h-full object-cover">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 電腦版：大標題 -->
+                <h1 class="hidden lg:block text-7xl font-serif font-bold leading-[1.1] mb-8 tracking-tight text-brand-text">
+                    游佳柔 <br><span class="text-gray-300 font-sans font-light">|</span> Essie
                 </h1>
-                <p class="text-xl md:text-2xl text-brand-muted font-light max-w-2xl leading-relaxed mb-12">
+
+                <p class="text-xl md:text-2xl text-brand-muted font-light max-w-2xl leading-relaxed mb-10 lg:mb-12">
                     在傳播邏輯中探索視覺美學的設計實踐者。
                 </p>
-                <div class="flex flex-wrap gap-4">
-                    <a href="#work" class="bg-brand-text text-white px-8 py-4 rounded-none text-sm font-medium tracking-widest uppercase hover:bg-gray-800 transition-colors">
+                <div class="flex flex-wrap gap-4 w-full sm:w-auto">
+                    <a href="#work" class="w-full sm:w-auto text-center bg-brand-text text-white px-8 py-4 rounded-none text-sm font-medium tracking-widest uppercase hover:bg-gray-800 transition-colors">
                         View Projects
                     </a>
-                    <a href="#contact" class="bg-transparent border border-gray-300 text-brand-text px-8 py-4 rounded-none text-sm font-medium tracking-widest uppercase hover:border-brand-text transition-colors">
+                    <a href="#contact" class="w-full sm:w-auto text-center bg-transparent border border-gray-300 text-brand-text px-8 py-4 rounded-none text-sm font-medium tracking-widest uppercase hover:border-brand-text transition-colors">
                         Contact Me
                     </a>
                 </div>
             </div>
-            <div class="relative flex justify-center lg:justify-end">
-                <div class="relative w-full max-w-sm lg:max-w-md">
+
+            <!-- 電腦版：右側大照片 -->
+            <div class="hidden lg:flex relative justify-end w-full">
+                <div class="relative w-full max-w-md">
                     <!-- 裝飾背景框 -->
                     <div class="absolute inset-0 border border-brand-accent/30 rounded-tl-[6rem] rounded-br-[6rem] transform translate-x-4 translate-y-4"></div>
                     <!-- 照片 -->
