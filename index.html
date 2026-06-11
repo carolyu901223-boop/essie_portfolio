@@ -2403,11 +2403,11 @@
             
             item.items.forEach(media => {
                 if (media.type === 'video') {
-                    html += `<video src="${media.srcFull}" controls autoplay class="w-full h-auto max-w-5xl mx-auto rounded-xl drop-shadow-lg bg-white"></video>`;
+                    html += `<video src="${media.srcFull}" controls autoplay class="max-w-full max-h-[80vh] w-auto h-auto object-contain mx-auto rounded-xl drop-shadow-lg bg-white"></video>`;
                 } else if (media.type === 'youtube') {
-                    html += `<iframe src="${media.srcFull}?autoplay=1" allow="autoplay; fullscreen" class="w-full aspect-video max-w-5xl mx-auto rounded-xl drop-shadow-lg" frameborder="0" allowfullscreen></iframe>`;
+                    html += `<iframe src="${media.srcFull}?autoplay=1" allow="autoplay; fullscreen" class="w-full max-w-5xl aspect-video mx-auto rounded-xl drop-shadow-lg" frameborder="0" allowfullscreen></iframe>`;
                 } else {
-                    html += `<img src="${media.srcFull}" alt="${item.title}" class="w-full h-auto object-contain max-w-5xl mx-auto rounded-xl drop-shadow-lg bg-white p-2">`;
+                    html += `<img src="${media.srcFull}" alt="${item.title}" class="max-w-full max-h-[80vh] w-auto h-auto object-contain mx-auto rounded-xl drop-shadow-lg bg-white p-2">`;
                 }
             });
             
