@@ -140,6 +140,160 @@
             </div>
         </div>
     </div>
-<script></script>
+<script>// 1. 作品集資料
+        let currentFilter = "全部";
+
+        const filterContainer = document.getElementById('filter-container');
+        const gridContainer = document.getElementById('portfolio-grid');
+        const modal = document.getElementById('project-modal');
+        const modalBackdrop = document.getElementById('modal-backdrop');
+        const modalContent = document.getElementById('modal-content');
+        const btnCloseModal = document.getElementById('close-modal');
+
+        // 渲染分類按鈕
+        function renderFilters() {
+            filterContainer.innerHTML = '';
+            categories.forEach(cat => {
+                const btn = document.createElement('button');
+                const isActive = cat === currentFilter;
+                
+                btn.className = `text-sm font-medium tracking-widest uppercase transition-all duration-300 pb-1 border-b-2 ${
+                    isActive 
+                    ? 'text-brand-text border-brand-text' 
+                    : 'text-gray-400 border-transparent hover:text-brand-text'
+                }`;
+                btn.innerText = cat;
+                
+                btn.onclick = () => {
+                    currentFilter = cat;
+                    renderFilters();
+                    renderGrid();
+                };
+                
+                filterContainer.appendChild(btn);
+            });
+        }
+
+        // 渲染作品網格 (高級感卡片設計)
+        function renderGrid() {
+            gridContainer.innerHTML = '';
+            
+            const filteredData = currentFilter === "全部" 
+                ? portfolioData 
+                : portfolioData.filter(item => item.category === currentFilter);
+
+            filteredData.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'group cursor-pointer flex flex-col fade-in break-inside-avoid mb-8';
+                
+                let mediaHtml = '';
+                if (item.coverType === 'video') {
+                    mediaHtml = `
+                        <video src="${item.coverThumb}" class="w-full h-auto object-contain rounded-lg transition-transform duration-700 group-hover:scale-105" loop muted playsinline onmouseover="this.play()" onmouseout="this.pause()"></video>
+                    `;
+                } else if (item.coverType === 'youtube') {
+                    mediaHtml = `
+                        <div class="relative w-full h-auto object-contain rounded-lg transition-transform duration-700 group-hover:scale-105 overflow-hidden filter grayscale-[20%] group-hover:grayscale-0">
+                            <img src="${item.coverThumb}" alt="${item.title}" class="w-full h-auto">
+                            <div class="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/10 transition-colors duration-300">
+                                <i class="ph ph-play-circle text-5xl text-white drop-shadow-md"></i>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    mediaHtml = `
+                        <img src="${item.coverThumb}" alt="${item.title}" class="w-full h-auto object-contain rounded-lg transition-transform duration-700 group-hover:scale-105 filter grayscale-[20%] group-hover:grayscale-0">
+                    `;
+                }
+
+                card.innerHTML = `
+                    <div class="relative overflow-hidden bg-brand-bg mb-4 rounded-lg shadow-sm">
+                        ${mediaHtml}
+                        <div class="absolute inset-0 bg-brand-text/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-lg pointer-events-none flex items-center justify-center">
+                             <span class="text-white bg-black/50 px-4 py-2 rounded-full text-sm font-light tracking-widest backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-y-4 group-hover:translate-y-0">查看所有作品</span>
+                        </div>
+                    </div>
+                    <div class="px-2">
+                        <span class="text-xs font-bold tracking-[0.2em] text-brand-muted uppercase mb-2 block">${item.category}</span>
+                        <h3 class="text-xl font-serif font-bold text-brand-text group-hover:text-brand-accent transition-colors">${item.title}</h3>
+                    </div>
+                `;
+
+                card.onclick = () => openModal(item);
+                gridContainer.appendChild(card);
+            });
+        }
+
+        // Modal 邏輯
+        function openModal(item) {
+            const imgContainer = document.getElementById('modal-img-container');
+            
+            let html = `
+                <div class="w-full text-center mb-4 relative z-10">
+                    <span class="text-sm font-bold tracking-[0.3em] text-brand-accent uppercase mb-4 block">${item.category}</span>
+                    <h3 class="text-4xl md:text-5xl font-serif font-bold text-brand-text tracking-wide">${item.title}</h3>
+                    <div class="w-12 h-1 bg-brand-accent mx-auto mt-8"></div>
+                </div>
+            `;
+            
+            item.items.forEach(media => {
+                if (media.type === 'video') {
+                    html += `<video src="${media.srcFull}" controls autoplay class="inline-block max-w-full max-h-[80vh] w-auto object-contain rounded-xl drop-shadow-lg bg-white"></video>`;
+                } else if (media.type === 'youtube') {
+                    html += `<iframe src="${media.srcFull}?autoplay=1" allow="autoplay; fullscreen" class="inline-block w-full max-w-5xl aspect-video rounded-xl drop-shadow-lg" frameborder="0" allowfullscreen></iframe>`;
+                } else {
+                    html += `<img src="${media.srcFull}" alt="${item.title}" class="inline-block max-w-full max-h-[80vh] w-auto object-contain rounded-xl drop-shadow-lg bg-white p-2">`;
+                }
+            });
+            
+            imgContainer.innerHTML = html;
+
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                modalContent.classList.remove('scale-95');
+                modalContent.classList.add('scale-100');
+            }, 10);
+            
+            document.body.classList.add('modal-open');
+        }
+
+        function closeModal() {
+            modal.classList.add('opacity-0');
+            modalContent.classList.remove('scale-100');
+            modalContent.classList.add('scale-95');
+            
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                document.getElementById('modal-img-container').innerHTML = ''; // clear video so it stops playing
+                document.body.classList.remove('modal-open');
+            }, 300);
+        }
+
+        btnCloseModal.addEventListener('click', closeModal);
+        modalBackdrop.addEventListener('click', closeModal);
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+                closeModal();
+            }
+        });
+
+        // 導覽列滾動效果
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.classList.add('shadow-sm');
+                header.classList.replace('py-5', 'py-3');
+            } else {
+                header.classList.remove('shadow-sm');
+                header.classList.replace('py-3', 'py-5');
+            }
+        });
+
+        // 初始化
+        renderFilters();
+        renderGrid();
+
+    </script>
 </body>
 </html>
