@@ -192,65 +192,94 @@
     </div>
 
 <script>
-    
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['"Noto Sans TC"', 'sans-serif'],
-                        serif: ['"Playfair Display"', 'serif'],
-                    },
-                    colors: {
-                        brand: {
-                            bg: '#FDFCF8',      // 溫潤的米白底色
-                            text: '#1C1C1C',    // 深邃的黑灰色，比純黑更有質感
-                            accent: '#8A84E2',  // 呼應您PDF中的紫色系，但調得更莫蘭迪、更具高級感
-                            muted: '#8A8A8A',   // 輔助灰色
-                        }
-                    }
-                }
+    // Copy the openModal logic from the full js_logic
+    const modal = document.getElementById('project-modal');
+    const modalContent = document.getElementById('modal-content');
+    const modalImgContainer = document.getElementById('modal-img-container');
+    const closeModal = document.getElementById('close-modal');
+
+    // Close modal logic
+    closeModal.addEventListener('click', () => {
+        modal.classList.add('opacity-0');
+        modalContent.classList.remove('scale-100');
+        modalContent.classList.add('scale-95');
+        setTimeout(() => {
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            document.body.classList.remove('modal-open');
+            modalImgContainer.innerHTML = '';
+        }, 300);
+    });
+
+    document.getElementById('modal-backdrop').addEventListener('click', () => closeModal.click());
+
+    function openModal(item) {
+        modalImgContainer.innerHTML = '';
+        let html = '';
+        item.items.forEach(media => {
+            if (media.type === 'video') {
+                html += `<video src="${media.srcFull}" controls autoplay class="inline-block max-w-full max-h-[80vh] w-auto object-contain rounded-xl drop-shadow-lg bg-white"></video>`;
+            } else if (media.type === 'youtube') {
+                html += `<iframe src="${media.srcFull}?autoplay=1" allow="autoplay; fullscreen" class="inline-block w-full max-w-5xl aspect-video rounded-xl drop-shadow-lg" frameborder="0" allowfullscreen></iframe>`;
+            } else {
+                html += `<img src="${media.srcFull}" alt="${item.title}" class="inline-block max-w-full max-h-[80vh] w-auto object-contain rounded-xl drop-shadow-lg bg-white p-2">`;
             }
-        }
-    
+        });
+        
+        modalImgContainer.innerHTML = html;
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+        document.body.classList.add('modal-open');
+        
+        // Trigger reflow
+        void modal.offsetWidth;
+        
+        modal.classList.remove('opacity-0');
+        modalContent.classList.remove('scale-95');
+        modalContent.classList.add('scale-100');
+    }
 
     // Render selected works (first 4)
-    const selectedGrid = document.getElementById('selected-works-grid');
-    if (selectedGrid) {
-        portfolioData.slice(0, 4).forEach(item => {
-            const card = document.createElement('div');
-            card.className = 'group cursor-pointer flex flex-col fade-in break-inside-avoid mb-8';
-            
-            let mediaHtml = '';
-            if (item.coverType === 'video') {
-                mediaHtml = `<video src="${item.coverThumb}" class="w-full h-auto object-contain rounded-lg transition-transform duration-700 group-hover:scale-105" loop muted playsinline onmouseover="this.play()" onmouseout="this.pause()"></video>`;
-            } else if (item.coverType === 'youtube') {
-                mediaHtml = `
-                    <div class="relative w-full h-auto object-contain rounded-lg transition-transform duration-700 group-hover:scale-105 overflow-hidden filter grayscale-[20%] group-hover:grayscale-0">
-                        <img src="${item.coverThumb}" alt="${item.title}" class="w-full h-auto">
-                        <div class="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/10 transition-colors duration-300">
-                            <i class="ph ph-play-circle text-5xl text-white drop-shadow-md"></i>
-                        </div>
-                    </div>`;
-            } else {
-                mediaHtml = `<img src="${item.coverThumb}" alt="${item.title}" class="w-full h-auto object-contain rounded-lg transition-transform duration-700 group-hover:scale-105 filter grayscale-[20%] group-hover:grayscale-0">`;
-            }
+    document.addEventListener('DOMContentLoaded', () => {
+        const selectedGrid = document.getElementById('selected-works-grid');
+        if (selectedGrid) {
+            // Render first 4 items directly
+            portfolioData.slice(0, 4).forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'group cursor-pointer flex flex-col fade-in break-inside-avoid mb-8';
+                
+                let mediaHtml = '';
+                if (item.coverType === 'video') {
+                    mediaHtml = `<video src="${item.coverThumb}" class="w-full h-auto object-contain rounded-lg transition-transform duration-700 group-hover:scale-105" loop muted playsinline onmouseover="this.play()" onmouseout="this.pause()"></video>`;
+                } else if (item.coverType === 'youtube') {
+                    mediaHtml = `
+                        <div class="relative w-full h-auto object-contain rounded-lg transition-transform duration-700 group-hover:scale-105 overflow-hidden filter grayscale-[20%] group-hover:grayscale-0">
+                            <img src="${item.coverThumb}" alt="${item.title}" class="w-full h-auto">
+                            <div class="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/10 transition-colors duration-300">
+                                <i class="ph ph-play-circle text-5xl text-white drop-shadow-md"></i>
+                            </div>
+                        </div>`;
+                } else {
+                    mediaHtml = `<img src="${item.coverThumb}" alt="${item.title}" class="w-full h-auto object-contain rounded-lg transition-transform duration-700 group-hover:scale-105 filter grayscale-[20%] group-hover:grayscale-0">`;
+                }
 
-            card.innerHTML = `
-                <div class="relative overflow-hidden bg-brand-bg mb-4 rounded-lg shadow-sm">
-                    ${mediaHtml}
-                    <div class="absolute inset-0 bg-brand-text/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-lg pointer-events-none flex items-center justify-center">
-                            <span class="text-white bg-black/50 px-4 py-2 rounded-full text-sm font-light tracking-widest backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-y-4 group-hover:translate-y-0">查看所有作品</span>
+                card.innerHTML = `
+                    <div class="relative overflow-hidden bg-brand-bg mb-4 rounded-lg shadow-sm">
+                        ${mediaHtml}
+                        <div class="absolute inset-0 bg-brand-text/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-lg pointer-events-none flex items-center justify-center">
+                                <span class="text-white bg-black/50 px-4 py-2 rounded-full text-sm font-light tracking-widest backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-y-4 group-hover:translate-y-0">查看所有作品</span>
+                        </div>
                     </div>
-                </div>
-                <div class="px-2">
-                    <span class="text-xs font-bold tracking-[0.2em] text-brand-muted uppercase mb-2 block">${item.category}</span>
-                    <h3 class="text-xl font-serif font-bold text-brand-text group-hover:text-brand-accent transition-colors">${item.title}</h3>
-                </div>
-            `;
-            card.onclick = () => openModal(item);
-            selectedGrid.appendChild(card);
-        });
-    }
+                    <div class="px-2">
+                        <span class="text-xs font-bold tracking-[0.2em] text-brand-muted uppercase mb-2 block">${item.category}</span>
+                        <h3 class="text-xl font-serif font-bold text-brand-text group-hover:text-brand-accent transition-colors">${item.title}</h3>
+                    </div>
+                `;
+                card.onclick = () => openModal(item);
+                selectedGrid.appendChild(card);
+            });
+        }
+    });
 </script>
 
 </body>
