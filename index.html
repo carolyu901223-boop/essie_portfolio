@@ -339,7 +339,7 @@
             </button>
 
             <!-- 畫廊區域 -->
-            <div id="modal-img-container" class="w-full flex flex-col items-center px-4 py-16 sm:px-12 gap-12 relative">
+            <div id="modal-img-container" class="w-full block text-center px-4 py-16 sm:px-12 space-y-12 relative">
                 <!-- Dynamic Media -->
             </div>
         </div>
@@ -1892,7 +1892,7 @@
         },
         {
                 "id": 51,
-                "title": "朵蔓 (Droman)",
+                "title": "朵蔓",
                 "category": "商案",
                 "coverType": "image",
                 "coverThumb": "assets/portfolio/商案/0426_朵蔓-草本完稿_465106_thumb.jpg",
@@ -2403,11 +2403,11 @@
             
             item.items.forEach(media => {
                 if (media.type === 'video') {
-                    html += `<video src="${media.srcFull}" controls autoplay class="max-w-full max-h-[80vh] w-auto h-auto object-contain mx-auto rounded-xl drop-shadow-lg bg-white"></video>`;
+                    html += `<video src="${media.srcFull}" controls autoplay class="inline-block max-w-full max-h-[80vh] w-auto object-contain rounded-xl drop-shadow-lg bg-white"></video>`;
                 } else if (media.type === 'youtube') {
-                    html += `<iframe src="${media.srcFull}?autoplay=1" allow="autoplay; fullscreen" class="w-full max-w-5xl aspect-video mx-auto rounded-xl drop-shadow-lg" frameborder="0" allowfullscreen></iframe>`;
+                    html += `<iframe src="${media.srcFull}?autoplay=1" allow="autoplay; fullscreen" class="inline-block w-full max-w-5xl aspect-video rounded-xl drop-shadow-lg" frameborder="0" allowfullscreen></iframe>`;
                 } else {
-                    html += `<img src="${media.srcFull}" alt="${item.title}" class="max-w-full max-h-[80vh] w-auto h-auto object-contain mx-auto rounded-xl drop-shadow-lg bg-white p-2">`;
+                    html += `<img src="${media.srcFull}" alt="${item.title}" class="inline-block max-w-full max-h-[80vh] w-auto object-contain rounded-xl drop-shadow-lg bg-white p-2">`;
                 }
             });
             
