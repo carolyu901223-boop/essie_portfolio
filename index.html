@@ -2905,6 +2905,56 @@
                 "type": "image",
                 "fullDesc": "（待補充作品描述）",
                 "roles": []
+        },
+        {
+                "id": 260,
+                "title": "2026烈火聯合主日搖滾區",
+                "category": "影片",
+                "imgThumb": "https://img.youtube.com/vi/Vp7uFMUAWNQ/hqdefault.jpg",
+                "imgFull": "https://www.youtube.com/embed/Vp7uFMUAWNQ",
+                "type": "youtube",
+                "fullDesc": "（待補充作品描述）",
+                "roles": []
+        },
+        {
+                "id": 261,
+                "title": "團契ㄅㄧㄤˋ很大-",
+                "category": "影片",
+                "imgThumb": "https://img.youtube.com/vi/XZ2DqvqmBKw/hqdefault.jpg",
+                "imgFull": "https://www.youtube.com/embed/XZ2DqvqmBKw",
+                "type": "youtube",
+                "fullDesc": "（待補充作品描述）",
+                "roles": []
+        },
+        {
+                "id": 262,
+                "title": "114北大創宣傳reels_標籤剝離_入圍世鑫獎",
+                "category": "影片",
+                "imgThumb": "https://img.youtube.com/vi/U_e5UwHO_3s/hqdefault.jpg",
+                "imgFull": "https://www.youtube.com/embed/U_e5UwHO_3s",
+                "type": "youtube",
+                "fullDesc": "（待補充作品描述）",
+                "roles": []
+        },
+        {
+                "id": 263,
+                "title": "一小時一張照片2",
+                "category": "影片",
+                "imgThumb": "https://img.youtube.com/vi/mqu52pnK53I/hqdefault.jpg",
+                "imgFull": "https://www.youtube.com/embed/mqu52pnK53I",
+                "type": "youtube",
+                "fullDesc": "（待補充作品描述）",
+                "roles": []
+        },
+        {
+                "id": 264,
+                "title": "114-2社團交接影片",
+                "category": "影片",
+                "imgThumb": "https://img.youtube.com/vi/SNCWlyxl6sM/hqdefault.jpg",
+                "imgFull": "https://www.youtube.com/embed/SNCWlyxl6sM",
+                "type": "youtube",
+                "fullDesc": "（待補充作品描述）",
+                "roles": []
         }
 ];
 
@@ -2969,6 +3019,15 @@
                     mediaHtml = `
                         <video src="${item.imgThumb}" class="w-full h-auto object-contain rounded-lg transition-transform duration-700 group-hover:scale-105" loop muted playsinline onmouseover="this.play()" onmouseout="this.pause()"></video>
                     `;
+                } else if (item.type === 'youtube') {
+                    mediaHtml = `
+                        <div class="relative w-full h-auto object-contain rounded-lg transition-transform duration-700 group-hover:scale-105 overflow-hidden filter grayscale-[20%] group-hover:grayscale-0">
+                            <img src="${item.imgThumb}" alt="${item.title}" class="w-full h-auto">
+                            <div class="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/10 transition-colors duration-300">
+                                <i class="ph ph-play-circle text-5xl text-white drop-shadow-md"></i>
+                            </div>
+                        </div>
+                    `;
                 } else {
                     mediaHtml = `
                         <img src="${item.imgThumb}" alt="${item.title}" class="w-full h-auto object-contain rounded-lg transition-transform duration-700 group-hover:scale-105 filter grayscale-[20%] group-hover:grayscale-0">
@@ -2996,6 +3055,10 @@
             const imgContainer = document.getElementById('modal-img-container');
             if (item.type === 'video') {
                 imgContainer.innerHTML = `<video src="${item.imgFull}" controls autoplay class="w-full h-auto max-h-[70vh] lg:max-h-[90vh] object-contain drop-shadow-sm"></video>`;
+            } else if (item.type === 'youtube') {
+                // Determine aspect ratio based on whether it is a short or a standard video
+                // We'll just use a responsive container that can handle standard video well, shorts will have pillarboxing which is standard for iframe.
+                imgContainer.innerHTML = `<iframe src="${item.imgFull}?autoplay=1" allow="autoplay; fullscreen" class="w-full h-full min-h-[500px] lg:min-h-[70vh] rounded-lg drop-shadow-sm" frameborder="0" allowfullscreen></iframe>`;
             } else {
                 imgContainer.innerHTML = `<img src="${item.imgFull}" alt="${item.title}" class="w-full h-auto max-h-[70vh] lg:max-h-[90vh] object-contain drop-shadow-sm">`;
             }
