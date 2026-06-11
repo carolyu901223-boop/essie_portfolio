@@ -69,21 +69,33 @@
 
     <main class="flex-grow pt-24">
         <!-- 英雄區塊 (Hero Section) - 留白與大字體 -->
-        <section class="max-w-7xl mx-auto px-6 lg:px-12 py-24 md:py-32 flex flex-col items-start fade-in" style="animation-delay: 0.1s;">
-            <p class="text-brand-accent font-medium tracking-[0.2em] uppercase text-sm mb-6">Graphic Design Portfolio</p>
-            <h1 class="text-5xl md:text-7xl lg:text-8xl font-serif font-bold leading-[1.1] mb-8 tracking-tight">
-                游佳柔 <span class="text-gray-300 font-sans font-light">|</span> Essie
-            </h1>
-            <p class="text-xl md:text-2xl text-brand-muted font-light max-w-2xl leading-relaxed mb-12">
-                在傳播邏輯中探索視覺美學的設計實踐者。
-            </p>
-            <div class="flex flex-wrap gap-4">
-                <a href="#work" class="bg-brand-text text-white px-8 py-4 rounded-none text-sm font-medium tracking-widest uppercase hover:bg-gray-800 transition-colors">
-                    View Projects
-                </a>
-                <a href="#contact" class="bg-transparent border border-gray-300 text-brand-text px-8 py-4 rounded-none text-sm font-medium tracking-widest uppercase hover:border-brand-text transition-colors">
-                    Contact Me
-                </a>
+        <section class="max-w-7xl mx-auto px-6 lg:px-12 py-24 md:py-32 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center fade-in" style="animation-delay: 0.1s;">
+            <div class="flex flex-col items-start">
+                <p class="text-brand-accent font-medium tracking-[0.2em] uppercase text-sm mb-6">Graphic Design Portfolio</p>
+                <h1 class="text-5xl md:text-7xl lg:text-7xl font-serif font-bold leading-[1.1] mb-8 tracking-tight">
+                    游佳柔 <br class="hidden lg:block"><span class="text-gray-300 font-sans font-light hidden lg:inline">|</span> Essie
+                </h1>
+                <p class="text-xl md:text-2xl text-brand-muted font-light max-w-2xl leading-relaxed mb-12">
+                    在傳播邏輯中探索視覺美學的設計實踐者。
+                </p>
+                <div class="flex flex-wrap gap-4">
+                    <a href="#work" class="bg-brand-text text-white px-8 py-4 rounded-none text-sm font-medium tracking-widest uppercase hover:bg-gray-800 transition-colors">
+                        View Projects
+                    </a>
+                    <a href="#contact" class="bg-transparent border border-gray-300 text-brand-text px-8 py-4 rounded-none text-sm font-medium tracking-widest uppercase hover:border-brand-text transition-colors">
+                        Contact Me
+                    </a>
+                </div>
+            </div>
+            <div class="relative flex justify-center lg:justify-end">
+                <div class="relative w-full max-w-sm lg:max-w-md">
+                    <!-- 裝飾背景框 -->
+                    <div class="absolute inset-0 border border-brand-accent/30 rounded-tl-[6rem] rounded-br-[6rem] transform translate-x-4 translate-y-4"></div>
+                    <!-- 照片 -->
+                    <div class="relative aspect-[3/4] overflow-hidden rounded-tl-[6rem] rounded-br-[6rem] shadow-xl bg-white">
+                        <img src="assets/images/profile.jpg" alt="Essie Yu 游佳柔" class="w-full h-full object-cover">
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -352,47 +364,282 @@
 
     <!-- 腳本 -->
     <script>
-        // 1. 作品集資料 (請替換為您的真實作品圖片與文字)
+        // 1. 作品集資料
         const portfolioData = [
-            {
-                id: 1,
-                title: "Acuvue 安視優 通路視覺",
-                category: "品牌視覺",
-                imgThumb: "https://images.unsplash.com/photo-1541701494587-cb58502866ab?auto=format&fit=crop&q=80&w=800",
-                imgFull: "https://images.unsplash.com/photo-1541701494587-cb58502866ab?auto=format&fit=crop&q=80&w=1200",
-                fullDesc: "參與 Acuvue 安視優品牌通路視覺美化設計。將品牌核心訴求轉化為清晰易讀的宣傳物，有效提升門市內的溝通效率與品牌一致性。",
-                roles: ["視覺排版設計", "通路製作物發包", "品牌規範應用"]
-            },
-            {
-                id: 2,
-                title: "世新大學 聖誕節大型活動",
-                category: "社群視覺",
-                imgThumb: "https://images.unsplash.com/photo-1511920170033-f8396924c348?auto=format&fit=crop&q=80&w=800",
-                imgFull: "https://images.unsplash.com/photo-1511920170033-f8396924c348?auto=format&fit=crop&q=80&w=1200",
-                fullDesc: "為世新團契統籌聖誕節大型活動的整體視覺。包含主視覺海報、社群預熱圖文以及現場佈置物設計，整體風格以溫暖、活潑的插畫元素強化活動認同感。",
-                roles: ["主視覺企劃", "社群圖文排版", "周邊視覺衍伸"]
-            },
-            {
-                id: 3,
-                title: "Phyto Derma 朵蔓 產品推廣",
-                category: "品牌視覺",
-                imgThumb: "https://images.unsplash.com/photo-1590439471364-192aa70c0b53?auto=format&fit=crop&q=80&w=800",
-                imgFull: "https://images.unsplash.com/photo-1590439471364-192aa70c0b53?auto=format&fit=crop&q=80&w=1200",
-                fullDesc: "協助 Phyto Derma 朵蔓進行產品推廣的視覺設計。運用乾淨的版面佈局與高質感的色彩計畫，凸顯品牌專業且天然的形象。",
-                roles: ["商品情境合成", "推廣圖文設計"]
-            },
-            {
-                id: 4,
-                title: "新店行道會 感恩節企劃",
-                category: "平面設計",
-                imgThumb: "https://images.unsplash.com/photo-1608686207856-001b95cf60ca?auto=format&fit=crop&q=80&w=800",
-                imgFull: "https://images.unsplash.com/photo-1608686207856-001b95cf60ca?auto=format&fit=crop&q=80&w=1200",
-                fullDesc: "負責教會感恩節特別企劃的平面視覺。設計了一系列充滿節慶氛圍卻不落俗套的文宣品，提升了活動的報名參與率與討論度。",
-                roles: ["視覺概念發想", "平面排版", "印刷品製作"]
-            }
+        {
+            "id": 1,
+            "title": "桃園銘傳信望愛社",
+            "category": "海報",
+            "imgThumb": "assets/portfolio/海報/桃園銘傳信望愛社_004eb4_thumb.jpg",
+            "imgFull": "assets/portfolio/海報/桃園銘傳信望愛社_004eb4_full.jpg",
+            "fullDesc": "（待補充作品描述）",
+            "roles": []
+        },
+        {
+            "id": 2,
+            "title": "112北大創",
+            "category": "海報",
+            "imgThumb": "assets/portfolio/海報/112北大創_d10dc1_thumb.jpg",
+            "imgFull": "assets/portfolio/海報/112北大創_d10dc1_full.jpg",
+            "fullDesc": "（待補充作品描述）",
+            "roles": []
+        },
+        {
+            "id": 3,
+            "title": "明新夢工廠",
+            "category": "海報",
+            "imgThumb": "assets/portfolio/海報/明新夢工廠_625c28_thumb.jpg",
+            "imgFull": "assets/portfolio/海報/明新夢工廠_625c28_full.jpg",
+            "fullDesc": "（待補充作品描述）",
+            "roles": []
+        },
+        {
+            "id": 4,
+            "title": "金犢獎_入圍海報",
+            "category": "海報",
+            "imgThumb": "assets/portfolio/海報/金犢獎_入圍海報_d7c940_thumb.jpg",
+            "imgFull": "assets/portfolio/海報/金犢獎_入圍海報_d7c940_full.jpg",
+            "fullDesc": "（待補充作品描述）",
+            "roles": []
+        },
+        {
+            "id": 5,
+            "title": "世新團契介紹海報",
+            "category": "海報",
+            "imgThumb": "assets/portfolio/海報/世新團契介紹海報_5c08a9_thumb.jpg",
+            "imgFull": "assets/portfolio/海報/世新團契介紹海報_5c08a9_full.jpg",
+            "fullDesc": "（待補充作品描述）",
+            "roles": []
+        },
+        {
+            "id": 6,
+            "title": "海報輸出a1",
+            "category": "海報",
+            "imgThumb": "assets/portfolio/海報/海報輸出a1_07a749_thumb.jpg",
+            "imgFull": "assets/portfolio/海報/海報輸出a1_07a749_full.jpg",
+            "fullDesc": "（待補充作品描述）",
+            "roles": []
+        },
+        {
+            "id": 7,
+            "title": "團契ㄅㄧㄤˋ很大reels封面",
+            "category": "其他設計",
+            "imgThumb": "assets/portfolio/其他設計/團契ㄅㄧㄤˋ很大reels封面_92954d_thumb.jpg",
+            "imgFull": "assets/portfolio/其他設計/團契ㄅㄧㄤˋ很大reels封面_92954d_full.jpg",
+            "fullDesc": "（待補充作品描述）",
+            "roles": []
+        },
+        {
+            "id": 8,
+            "title": "環保義工聚餐邀請卡_校長",
+            "category": "其他設計",
+            "imgThumb": "assets/portfolio/其他設計/環保義工聚餐邀請卡_校長_765451_thumb.jpg",
+            "imgFull": "assets/portfolio/其他設計/環保義工聚餐邀請卡_校長_765451_full.jpg",
+            "fullDesc": "（待補充作品描述）",
+            "roles": []
+        },
+        {
+            "id": 9,
+            "title": "故事募集_貼文",
+            "category": "社群圖文",
+            "imgThumb": "assets/portfolio/社群圖文/故事募集_貼文_57fc18_thumb.jpg",
+            "imgFull": "assets/portfolio/社群圖文/故事募集_貼文_57fc18_full.jpg",
+            "fullDesc": "（待補充作品描述）",
+            "roles": []
+        },
+        {
+            "id": 10,
+            "title": "貼文1080*1350",
+            "category": "社群圖文",
+            "imgThumb": "assets/portfolio/社群圖文/貼文1080*1350_fcc15b_thumb.jpg",
+            "imgFull": "assets/portfolio/社群圖文/貼文1080*1350_fcc15b_full.jpg",
+            "fullDesc": "（待補充作品描述）",
+            "roles": []
+        },
+        {
+            "id": 11,
+            "title": "期末烤EDM",
+            "category": "EDM",
+            "imgThumb": "assets/portfolio/EDM/期末烤EDM_c99330_thumb.jpg",
+            "imgFull": "assets/portfolio/EDM/期末烤EDM_c99330_full.jpg",
+            "fullDesc": "（待補充作品描述）",
+            "roles": []
+        },
+        {
+            "id": 12,
+            "title": "1120_新生籌備_EDM",
+            "category": "EDM",
+            "imgThumb": "assets/portfolio/EDM/1120_新生籌備_EDM_e1b534_thumb.jpg",
+            "imgFull": "assets/portfolio/EDM/1120_新生籌備_EDM_e1b534_full.jpg",
+            "fullDesc": "（待補充作品描述）",
+            "roles": []
+        },
+        {
+            "id": 13,
+            "title": "2025暑假camp EDM",
+            "category": "EDM",
+            "imgThumb": "assets/portfolio/EDM/2025暑假camp_EDM_99abf3_thumb.jpg",
+            "imgFull": "assets/portfolio/EDM/2025暑假camp_EDM_99abf3_full.jpg",
+            "fullDesc": "（待補充作品描述）",
+            "roles": []
+        },
+        {
+            "id": 14,
+            "title": "佈道會edm",
+            "category": "EDM",
+            "imgThumb": "assets/portfolio/EDM/佈道會edm_41862f_thumb.jpg",
+            "imgFull": "assets/portfolio/EDM/佈道會edm_41862f_full.jpg",
+            "fullDesc": "（待補充作品描述）",
+            "roles": []
+        },
+        {
+            "id": 15,
+            "title": "你知道 出口 在哪嗎？",
+            "category": "EDM",
+            "imgThumb": "assets/portfolio/EDM/你知道_出口_在哪嗎？_a609f8_thumb.jpg",
+            "imgFull": "assets/portfolio/EDM/你知道_出口_在哪嗎？_a609f8_full.jpg",
+            "fullDesc": "（待補充作品描述）",
+            "roles": []
+        },
+        {
+            "id": 16,
+            "title": "114-2期初＿EDM",
+            "category": "EDM",
+            "imgThumb": "assets/portfolio/EDM/114-2期初＿EDM_d01148_thumb.jpg",
+            "imgFull": "assets/portfolio/EDM/114-2期初＿EDM_d01148_full.jpg",
+            "fullDesc": "（待補充作品描述）",
+            "roles": []
+        },
+        {
+            "id": 17,
+            "title": "復活節聚會_EDM",
+            "category": "EDM",
+            "imgThumb": "assets/portfolio/EDM/復活節聚會_EDM_f2c995_thumb.jpg",
+            "imgFull": "assets/portfolio/EDM/復活節聚會_EDM_f2c995_full.jpg",
+            "fullDesc": "（待補充作品描述）",
+            "roles": []
+        },
+        {
+            "id": 18,
+            "title": "春遊edm_draw",
+            "category": "EDM",
+            "imgThumb": "assets/portfolio/EDM/春遊edm_draw_1c7f27_thumb.jpg",
+            "imgFull": "assets/portfolio/EDM/春遊edm_draw_1c7f27_full.jpg",
+            "fullDesc": "（待補充作品描述）",
+            "roles": []
+        },
+        {
+            "id": 19,
+            "title": "2025暑假camp EDM＿外教會",
+            "category": "EDM",
+            "imgThumb": "assets/portfolio/EDM/2025暑假camp_EDM＿外教會_366994_thumb.jpg",
+            "imgFull": "assets/portfolio/EDM/2025暑假camp_EDM＿外教會_366994_full.jpg",
+            "fullDesc": "（待補充作品描述）",
+            "roles": []
+        },
+        {
+            "id": 20,
+            "title": "惹萬日 公主保衛戰",
+            "category": "EDM",
+            "imgThumb": "assets/portfolio/EDM/惹萬日_公主保衛戰_9e25bc_thumb.jpg",
+            "imgFull": "assets/portfolio/EDM/惹萬日_公主保衛戰_9e25bc_full.jpg",
+            "fullDesc": "（待補充作品描述）",
+            "roles": []
+        },
+        {
+            "id": 21,
+            "title": "銘銘世祢先愛我EDM",
+            "category": "EDM",
+            "imgThumb": "assets/portfolio/EDM/銘銘世祢先愛我EDM_5dcc3d_thumb.jpg",
+            "imgFull": "assets/portfolio/EDM/銘銘世祢先愛我EDM_5dcc3d_full.jpg",
+            "fullDesc": "（待補充作品描述）",
+            "roles": []
+        },
+        {
+            "id": 22,
+            "title": "感恩節聚會_EDM",
+            "category": "EDM",
+            "imgThumb": "assets/portfolio/EDM/感恩節聚會_EDM_912948_thumb.jpg",
+            "imgFull": "assets/portfolio/EDM/感恩節聚會_EDM_912948_full.jpg",
+            "fullDesc": "（待補充作品描述）",
+            "roles": []
+        },
+        {
+            "id": 23,
+            "title": "20241116 R1佈道會edm",
+            "category": "EDM",
+            "imgThumb": "assets/portfolio/EDM/20241116_R1佈道會edm_fa0120_thumb.jpg",
+            "imgFull": "assets/portfolio/EDM/20241116_R1佈道會edm_fa0120_full.jpg",
+            "fullDesc": "（待補充作品描述）",
+            "roles": []
+        },
+        {
+            "id": 24,
+            "title": "感恩節禱告會EDM",
+            "category": "EDM",
+            "imgThumb": "assets/portfolio/EDM/感恩節禱告會EDM_365e7a_thumb.jpg",
+            "imgFull": "assets/portfolio/EDM/感恩節禱告會EDM_365e7a_full.jpg",
+            "fullDesc": "（待補充作品描述）",
+            "roles": []
+        },
+        {
+            "id": 25,
+            "title": "20251204christmas_EDM",
+            "category": "EDM",
+            "imgThumb": "assets/portfolio/EDM/20251204christmas_EDM_fb2cd6_thumb.jpg",
+            "imgFull": "assets/portfolio/EDM/20251204christmas_EDM_fb2cd6_full.jpg",
+            "fullDesc": "（待補充作品描述）",
+            "roles": []
+        },
+        {
+            "id": 26,
+            "title": "志工研習DM",
+            "category": "EDM",
+            "imgThumb": "assets/portfolio/EDM/志工研習DM_721885_thumb.jpg",
+            "imgFull": "assets/portfolio/EDM/志工研習DM_721885_full.jpg",
+            "fullDesc": "（待補充作品描述）",
+            "roles": []
+        },
+        {
+            "id": 27,
+            "title": "北科X世新聯合聚會_EDM",
+            "category": "EDM",
+            "imgThumb": "assets/portfolio/EDM/北科X世新聯合聚會_EDM_70c60e_thumb.jpg",
+            "imgFull": "assets/portfolio/EDM/北科X世新聯合聚會_EDM_70c60e_full.jpg",
+            "fullDesc": "（待補充作品描述）",
+            "roles": []
+        },
+        {
+            "id": 28,
+            "title": "禱告小組logo",
+            "category": "logo",
+            "imgThumb": "assets/portfolio/logo/禱告小組logo_648bc7_thumb.jpg",
+            "imgFull": "assets/portfolio/logo/禱告小組logo_648bc7_full.jpg",
+            "fullDesc": "（待補充作品描述）",
+            "roles": []
+        },
+        {
+            "id": 29,
+            "title": "世新團契面紙包設計",
+            "category": "商品設計",
+            "imgThumb": "assets/portfolio/商品設計/世新團契面紙包設計_17e3f6_thumb.jpg",
+            "imgFull": "assets/portfolio/商品設計/世新團契面紙包設計_17e3f6_full.jpg",
+            "fullDesc": "（待補充作品描述）",
+            "roles": []
+        }
         ];
 
-        const categories = ["全部", "品牌視覺", "社群視覺", "平面設計"];
+        const categories = [
+            "全部",
+            "EDM",
+            "商品設計",
+            "logo",
+            "社群圖文",
+            "商案",
+            "影片",
+            "海報",
+            "其他設計"
+        ];
         let currentFilter = "全部";
 
         const filterContainer = document.getElementById('filter-container');
