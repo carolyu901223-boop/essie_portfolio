@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>游佳柔 Essie | Graphic Design Portfolio</title>
+    <!-- 引入 Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 引入 Google Fonts (加入更優雅的字體組合) -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <!-- 引入 Phosphor Icons 圖示庫 -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Noto Sans TC"', 'sans-serif'],
+                        serif: ['"Playfair Display"', 'serif'],
+                    },
+                    colors: {
+                        brand: {
+                            bg: '#FDFCF8',      // 溫潤的米白底色
+                            text: '#1C1C1C',    // 深邃的黑灰色，比純黑更有質感
+                            accent: '#8A84E2',  // 呼應您PDF中的紫色系，但調得更莫蘭迪、更具高級感
+                            muted: '#8A8A8A',   // 輔助灰色
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { scroll-behavior: smooth; background-color: #FDFCF8; }
+        ::selection { background-color: #8A84E2; color: white; }
+        .fade-in { animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; transform: translateY(20px); }
+        @keyframes fadeIn {
+            to { opacity: 1; transform: translateY(0); }
+        }
+        body.modal-open { overflow: hidden; }
+        
+        /* 訂製細線條滾動條 */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #E5E7EB; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #D1D5DB; }
+    </style>
+<title>About | Essie Yu</title>
+</head>
+<body class="text-brand-text font-sans antialiased min-h-screen flex flex-col bg-brand-bg">
+<header class="fixed top-0 w-full z-40 bg-brand-bg/80 backdrop-blur-md border-b border-gray-100/50 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12 py-5 flex justify-between items-center">
+            <div class="text-lg font-serif font-bold tracking-widest uppercase">
+                Essie Yu<span class="text-brand-accent">.</span>
+            </div>
+            <nav class="hidden md:flex space-x-10">
+                <a href="index.html" class="text-sm font-medium text-brand-muted hover:text-brand-text transition-colors tracking-widest uppercase">Home</a>
+                <a href="about.html" class="text-sm font-medium text-brand-accent hover:text-brand-text transition-colors tracking-widest uppercase">About</a>
+                <a href="portfolio.html" class="text-sm font-medium text-brand-muted hover:text-brand-text transition-colors tracking-widest uppercase">Portfolio</a>
+                <a href="#contact" class="text-sm font-medium text-brand-muted hover:text-brand-text transition-colors tracking-widest uppercase">Contact</a>
+            </nav>
+            <div class="md:hidden">
+                <i class="ph ph-list text-2xl text-brand-text"></i>
+            </div>
+        </div>
+    </header>
+<main class="flex-grow pt-24">
+<section id="about" class="bg-white py-24 fade-in" style="animation-delay: 0.2s;">
+            <div class="max-w-7xl mx-auto px-6 lg:px-12">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
+                    
+                    <!-- 左側：自我介紹 -->
+                    <div>
+                        <h2 class="text-xs font-bold tracking-[0.2em] text-brand-muted uppercase mb-8 border-b border-gray-200 pb-4">Introduction</h2>
+                        <div class="prose prose-lg text-gray-600 font-light leading-loose">
+                            <p>
+                                帶著世新傳管的訓練背景，我喜歡在設計前思考設計背後的溝通意義。過去一年，我有幸在 <strong>2025 國際金犢獎</strong>中獲得入圍肯定，並參與了 Acuvue 安視優與 Phyto Derma 朵蔓等品牌的通路設計實務。對我而言，每一份專案都是珍貴的學習機會。
+                            </p>
+                            <p>
+                                我擅長使用 Illustrator、Photoshop，並致力於透過視覺，協助合作夥伴將想法轉化為有溫度的作品。致力於在實踐中精進視覺語言，期許用穩定成長的執行力，與您一起探索設計的更多可能。
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- 右側：服務與優勢 -->
+                    <div class="flex flex-col gap-12">
+                        <!-- 服務項目 -->
+                        <div>
+                            <h2 class="text-xs font-bold tracking-[0.2em] text-brand-muted uppercase mb-8 border-b border-gray-200 pb-4">Collaboration Services</h2>
+                            <ul class="space-y-6">
+                                <li class="flex items-center">
+                                    <i class="ph ph-bezier-curve text-2xl text-brand-accent mr-4"></i>
+                                    <div>
+                                        <h3 class="text-lg font-medium text-brand-text">品牌視覺識別</h3>
+                                        <p class="text-sm text-brand-muted uppercase tracking-wider mt-1">Brand Identity Design</p>
+                                    </div>
+                                </li>
+                                <li class="flex items-center">
+                                    <i class="ph ph-device-mobile text-2xl text-brand-accent mr-4"></i>
+                                    <div>
+                                        <h3 class="text-lg font-medium text-brand-text">社群行銷圖文</h3>
+                                        <p class="text-sm text-brand-muted uppercase tracking-wider mt-1">Social Media Design</p>
+                                    </div>
+                                </li>
+                                <li class="flex items-center">
+                                    <i class="ph ph-monitor-play text-2xl text-brand-accent mr-4"></i>
+                                    <div>
+                                        <h3 class="text-lg font-medium text-brand-text">商業主視覺</h3>
+                                        <p class="text-sm text-brand-muted uppercase tracking-wider mt-1">Commercial Key Visual</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- 合作優勢 -->
+                        <div class="bg-brand-bg p-8 border border-gray-100">
+                            <h3 class="text-sm font-bold tracking-[0.1em] text-brand-text uppercase mb-6">Why Collaborate With Me</h3>
+                            <div class="space-y-4">
+                                <div>
+                                    <h4 class="text-md font-medium text-brand-text flex items-center gap-2"><i class="ph-fill ph-medal text-brand-accent"></i> 金犢獎肯定</h4>
+                                    <p class="text-sm text-gray-500 mt-1 pl-6">以國際獎項的標準對待每一份作品</p>
+                                </div>
+                                <div>
+                                    <h4 class="text-md font-medium text-brand-text flex items-center gap-2"><i class="ph-fill ph-lightbulb text-brand-accent"></i> 策略思維</h4>
+                                    <p class="text-sm text-gray-500 mt-1 pl-6">傳管背景出身，不只求美更求精準溝通</p>
+                                </div>
+                                <div>
+                                    <h4 class="text-md font-medium text-brand-text flex items-center gap-2"><i class="ph-fill ph-rocket text-brand-accent"></i> 高效執行</h4>
+                                    <p class="text-sm text-gray-500 mt-1 pl-6">穩定的專案管理與準時交付能力</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+<section id="resume" class="py-24 bg-white fade-in" style="animation-delay: 0.3s;">
+            <div class="max-w-7xl mx-auto px-6 lg:px-12">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-16">
+                    
+                    <!-- 左側標題與技能 -->
+                    <div class="lg:col-span-4">
+                        <h2 class="text-3xl font-serif font-bold mb-8">Experience &<br>Education</h2>
+                        
+                        <div class="mt-12">
+                            <h3 class="text-xs font-bold tracking-[0.2em] text-brand-muted uppercase mb-6">Professional Skills</h3>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-4 py-2 bg-white border border-gray-200 text-xs font-medium tracking-wider uppercase text-brand-text">Adobe Illustrator</span>
+                                <span class="px-4 py-2 bg-white border border-gray-200 text-xs font-medium tracking-wider uppercase text-brand-text">Adobe Photoshop</span>
+                                <span class="px-4 py-2 bg-white border border-gray-200 text-xs font-medium tracking-wider uppercase text-brand-text">平面設計</span>
+                                <span class="px-4 py-2 bg-white border border-gray-200 text-xs font-medium tracking-wider uppercase text-brand-text">社群圖文</span>
+                                <span class="px-4 py-2 bg-white border border-gray-200 text-xs font-medium tracking-wider uppercase text-brand-text">品牌識別</span>
+                                <span class="px-4 py-2 bg-white border border-gray-200 text-xs font-medium tracking-wider uppercase text-brand-text">主視覺海報設計</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 右側 Timeline -->
+                    <div class="lg:col-span-8">
+                        <!-- 經歷 -->
+                        <div class="mb-16">
+                            <h3 class="text-xs font-bold tracking-[0.2em] text-brand-muted uppercase mb-8 border-b border-gray-200 pb-4">Experience</h3>
+                            <div class="space-y-12">
+                                <!-- 項目 1 -->
+                                <div class="relative pl-8 before:absolute before:left-0 before:top-2 before:w-[2px] before:h-full before:bg-gray-200 last:before:h-0">
+                                    <div class="absolute left-[-4px] top-1.5 w-2.5 h-2.5 rounded-full bg-brand-text"></div>
+                                    <div class="flex flex-col md:flex-row md:items-baseline md:justify-between mb-2">
+                                        <h4 class="text-xl font-medium text-brand-text">2025 國際金犢獎</h4>
+                                        <span class="text-sm font-medium text-brand-accent tracking-wider uppercase mt-1 md:mt-0">入圍獎</span>
+                                    </div>
+                                    <p class="text-gray-500 font-light leading-relaxed">以創新思維與視覺敘事，從眾多國際參賽作品中脫穎而出。</p>
+                                </div>
+                                
+                                <!-- 項目 2 -->
+                                <div class="relative pl-8 before:absolute before:left-0 before:top-2 before:w-[2px] before:h-full before:bg-gray-200 last:before:h-0">
+                                    <div class="absolute left-[-4px] top-1.5 w-2.5 h-2.5 rounded-full bg-gray-300"></div>
+                                    <div class="flex flex-col md:flex-row md:items-baseline md:justify-between mb-2">
+                                        <h4 class="text-xl font-medium text-brand-text">品牌視覺設計專案</h4>
+                                        <span class="text-sm text-gray-400 tracking-wider mt-1 md:mt-0">Acuvue 安視優、Phyto Derma 朵蔓</span>
+                                    </div>
+                                    <p class="text-gray-500 font-light leading-relaxed">負責品牌通路視覺美化與推廣設計，提升品牌形象與市場溝通效率。</p>
+                                </div>
+
+                                <!-- 項目 3 -->
+                                <div class="relative pl-8 before:absolute before:left-0 before:top-2 before:w-[2px] before:h-full before:bg-gray-200 last:before:h-0">
+                                    <div class="absolute left-[-4px] top-1.5 w-2.5 h-2.5 rounded-full bg-gray-300"></div>
+                                    <div class="flex flex-col md:flex-row md:items-baseline md:justify-between mb-2">
+                                        <h4 class="text-xl font-medium text-brand-text">社群媒體 | 視覺統籌</h4>
+                                        <span class="text-sm text-gray-400 tracking-wider mt-1 md:mt-0">世新團契、禱告小組、新店行道會</span>
+                                    </div>
+                                    <p class="text-gray-500 font-light leading-relaxed">統籌校園大型活動(如聖誕節、感恩節)之視覺設計，強化活動認同感。</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 學歷 -->
+                        <div>
+                            <h3 class="text-xs font-bold tracking-[0.2em] text-brand-muted uppercase mb-8 border-b border-gray-200 pb-4">Education</h3>
+                            <div class="space-y-12">
+                                <!-- 學歷 1 -->
+                                <div class="relative pl-8 before:absolute before:left-0 before:top-2 before:w-[2px] before:h-full before:bg-gray-200 last:before:h-0">
+                                    <div class="absolute left-[-4px] top-1.5 w-2.5 h-2.5 rounded-full bg-gray-300"></div>
+                                    <div class="flex flex-col md:flex-row md:items-baseline md:justify-between mb-2">
+                                        <h4 class="text-xl font-medium text-brand-text">世新大學</h4>
+                                        <span class="text-sm text-brand-muted font-medium tracking-wider mt-1 md:mt-0">2020 - 2026</span>
+                                    </div>
+                                    <p class="text-gray-500 font-light">傳播管理學系</p>
+                                </div>
+                                
+                                <!-- 學歷 2 -->
+                                <div class="relative pl-8 before:absolute before:left-0 before:top-2 before:w-[2px] before:h-full before:bg-gray-200 last:before:h-0">
+                                    <div class="absolute left-[-4px] top-1.5 w-2.5 h-2.5 rounded-full bg-gray-300"></div>
+                                    <div class="flex flex-col md:flex-row md:items-baseline md:justify-between mb-2">
+                                        <h4 class="text-xl font-medium text-brand-text">西松高中</h4>
+                                        <span class="text-sm text-brand-muted font-medium tracking-wider mt-1 md:mt-0">2017 - 2020</span>
+                                    </div>
+                                    <p class="text-gray-500 font-light">數理實驗班</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+<section id="contact" class="bg-brand-text text-white py-24 lg:py-32">
+            <div class="max-w-7xl mx-auto px-6 lg:px-12 grid grid-cols-1 md:grid-cols-2 gap-16">
+                <div>
+                    <h2 class="text-4xl md:text-5xl font-serif font-bold mb-6">Let's create<br>something great.</h2>
+                    <p class="text-gray-400 font-light mb-10 max-w-md">期待與您合作，將想法轉化為有溫度的設計作品，創造更多可能。</p>
+                    <a href="mailto:carol.yu901223@gmail.com" class="inline-flex items-center gap-3 bg-white text-brand-text px-8 py-4 rounded-none font-medium hover:bg-gray-200 transition-colors tracking-widest uppercase text-sm">
+                        <i class="ph ph-envelope-simple text-lg"></i>
+                        Get In Touch
+                    </a>
+                </div>
+
+                <div class="flex flex-col justify-center space-y-8 md:pl-12 md:border-l border-gray-700">
+                    <div>
+                        <span class="block text-xs font-bold tracking-[0.2em] text-gray-500 uppercase mb-2">Email</span>
+                        <a href="mailto:carol.yu901223@gmail.com" class="text-xl md:text-2xl font-light hover:text-brand-accent transition-colors">carol.yu901223@gmail.com</a>
+                    </div>
+                    <div>
+                        <span class="block text-xs font-bold tracking-[0.2em] text-gray-500 uppercase mb-2">Phone</span>
+                        <a href="tel:0900004621" class="text-xl md:text-2xl font-light hover:text-brand-accent transition-colors">0900 004 621</a>
+                    </div>
+                    <div>
+                        <span class="block text-xs font-bold tracking-[0.2em] text-gray-500 uppercase mb-2">Social</span>
+                        <div class="flex gap-6 mt-2">
+                            <a href="#" class="text-gray-300 hover:text-brand-accent transition-colors flex items-center gap-2">
+                                <i class="ph ph-instagram-logo text-2xl"></i>
+                                <span class="font-light">@c.j.star</span>
+                            </a>
+                            <a href="#" class="text-gray-300 hover:text-brand-accent transition-colors flex items-center gap-2">
+                                <i class="ph ph-instagram-logo text-2xl"></i>
+                                <span class="font-light">@essie_graphic.design</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+</main>
+</body>
+</html>

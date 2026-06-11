@@ -46,6 +46,7 @@
         ::-webkit-scrollbar-thumb { background: #E5E7EB; border-radius: 10px; }
         ::-webkit-scrollbar-thumb:hover { background: #D1D5DB; }
     </style>
+<title>Portfolio | Essie Yu</title>
 <script src="assets/js/data.js"></script>
 </head>
 <body class="text-brand-text font-sans antialiased min-h-screen flex flex-col">
@@ -55,9 +56,9 @@
                 Essie Yu<span class="text-brand-accent">.</span>
             </div>
             <nav class="hidden md:flex space-x-10">
-                <a href="index.html" class="text-sm font-medium text-brand-accent hover:text-brand-text transition-colors tracking-widest uppercase">Home</a>
+                <a href="index.html" class="text-sm font-medium text-brand-muted hover:text-brand-text transition-colors tracking-widest uppercase">Home</a>
                 <a href="about.html" class="text-sm font-medium text-brand-muted hover:text-brand-text transition-colors tracking-widest uppercase">About</a>
-                <a href="portfolio.html" class="text-sm font-medium text-brand-muted hover:text-brand-text transition-colors tracking-widest uppercase">Portfolio</a>
+                <a href="portfolio.html" class="text-sm font-medium text-brand-accent hover:text-brand-text transition-colors tracking-widest uppercase">Portfolio</a>
                 <a href="#contact" class="text-sm font-medium text-brand-muted hover:text-brand-text transition-colors tracking-widest uppercase">Contact</a>
             </nav>
             <div class="md:hidden">
@@ -66,77 +67,26 @@
         </div>
     </header>
 <main class="flex-grow pt-24">
-<!-- 英雄區塊 (Hero Section) - 留白與大字體 -->
-        <section class="max-w-7xl mx-auto px-6 lg:px-12 py-24 md:py-32 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center fade-in" style="animation-delay: 0.1s;">
-            <div class="flex flex-col items-start w-full">
-                <p class="text-brand-accent font-medium tracking-[0.2em] uppercase text-sm mb-6">Graphic Design Portfolio</p>
-                
-                <!-- 手機版：名字與照片並排 -->
-                <div class="flex flex-row items-center justify-between w-full lg:hidden mb-8 gap-4 sm:gap-6">
-                    <h1 class="text-[2.75rem] leading-[1.1] sm:text-6xl font-serif font-bold tracking-tight text-brand-text">
-                        游佳柔 <br> Essie
-                    </h1>
-                    <div class="relative w-32 sm:w-48 aspect-[3/4] shrink-0">
-                        <div class="absolute inset-0 border border-brand-accent/30 rounded-tl-[2rem] rounded-br-[2rem] transform translate-x-2 translate-y-2"></div>
-                        <div class="relative w-full h-full overflow-hidden rounded-tl-[2rem] rounded-br-[2rem] shadow-lg bg-white">
-                            <img src="assets/images/profile.jpg" alt="Essie Yu 游佳柔" class="w-full h-full object-cover">
-                        </div>
+<section id="work" class="bg-white py-12 md:py-24 fade-in" style="animation-delay: 0.4s;">
+            <div class="max-w-7xl mx-auto px-6 lg:px-12">
+                <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-8">
+                    <div>
+                        <h2 class="text-xs font-bold tracking-[0.2em] text-brand-muted uppercase mb-4">Project Showcase</h2>
+                        <h3 class="text-4xl font-serif font-bold">精選作品</h3>
+                    </div>
+                    
+                    <!-- 分類按鈕容器 (雅致的文字連結風格) -->
+                    <div id="filter-container" class="flex flex-wrap gap-6">
+                        <!-- 動態生成 -->
                     </div>
                 </div>
 
-                <!-- 電腦版：大標題 -->
-                <h1 class="hidden lg:block text-7xl font-serif font-bold leading-[1.1] mb-8 tracking-tight text-brand-text">
-                    游佳柔 <br><span class="text-gray-300 font-sans font-light">|</span> Essie
-                </h1>
-
-                <p class="text-xl md:text-2xl text-brand-muted font-light max-w-2xl leading-relaxed mb-10 lg:mb-12">
-                    在傳播邏輯中探索視覺美學的設計實踐者。
-                </p>
-                <div class="flex flex-wrap gap-4 w-full sm:w-auto">
-                    <a href="portfolio.html" class="w-full sm:w-auto text-center bg-brand-text text-white px-8 py-4 rounded-none text-sm font-medium tracking-widest uppercase hover:bg-gray-800 transition-colors">
-                        View Projects
-                    </a>
-                    <a href="#contact" class="w-full sm:w-auto text-center bg-transparent border border-gray-300 text-brand-text px-8 py-4 rounded-none text-sm font-medium tracking-widest uppercase hover:border-brand-text transition-colors">
-                        Contact Me
-                    </a>
-                </div>
-            </div>
-
-            <!-- 電腦版：右側大照片 -->
-            <div class="hidden lg:flex relative justify-end w-full">
-                <div class="relative w-full max-w-md">
-                    <!-- 裝飾背景框 -->
-                    <div class="absolute inset-0 border border-brand-accent/30 rounded-tl-[6rem] rounded-br-[6rem] transform translate-x-4 translate-y-4"></div>
-                    <!-- 照片 -->
-                    <div class="relative aspect-[3/4] overflow-hidden rounded-tl-[6rem] rounded-br-[6rem] shadow-xl bg-white">
-                        <img src="assets/images/profile.jpg" alt="Essie Yu 游佳柔" class="w-full h-full object-cover">
-                    </div>
+                <!-- 作品網格 -->
+                <div id="portfolio-grid" class="columns-1 md:columns-2 lg:columns-3 gap-8 space-y-8">
+                    <!-- 動態生成 -->
                 </div>
             </div>
         </section>
-
-<section class="bg-white py-24 border-t border-gray-100">
-    <div class="max-w-7xl mx-auto px-6 lg:px-12">
-        <div class="flex justify-between items-end mb-16">
-            <div>
-                <h2 class="text-xs font-bold tracking-[0.2em] text-brand-muted uppercase mb-4">Selected Works</h2>
-                <h3 class="text-4xl font-serif font-bold text-brand-text">精選作品</h3>
-            </div>
-            <a href="portfolio.html" class="hidden md:flex items-center text-sm font-bold tracking-widest uppercase text-brand-accent hover:text-brand-text transition-colors">
-                View All <i class="ph ph-arrow-right ml-2 text-lg"></i>
-            </a>
-        </div>
-        <div id="selected-works-grid" class="columns-1 md:columns-2 gap-8 space-y-8">
-            <!-- Rendered by JS -->
-        </div>
-        <div class="mt-12 text-center md:hidden">
-            <a href="portfolio.html" class="inline-flex items-center text-sm font-bold tracking-widest uppercase text-brand-accent hover:text-brand-text transition-colors">
-                View All <i class="ph ph-arrow-right ml-2 text-lg"></i>
-            </a>
-        </div>
-    </div>
-</section>
-
 <section id="contact" class="bg-brand-text text-white py-24 lg:py-32">
             <div class="max-w-7xl mx-auto px-6 lg:px-12 grid grid-cols-1 md:grid-cols-2 gap-16">
                 <div>
@@ -190,9 +140,7 @@
             </div>
         </div>
     </div>
-
 <script>
-    
         tailwind.config = {
             theme: {
                 extend: {
@@ -211,47 +159,6 @@
                 }
             }
         }
-    
-
-    // Render selected works (first 4)
-    const selectedGrid = document.getElementById('selected-works-grid');
-    if (selectedGrid) {
-        portfolioData.slice(0, 4).forEach(item => {
-            const card = document.createElement('div');
-            card.className = 'group cursor-pointer flex flex-col fade-in break-inside-avoid mb-8';
-            
-            let mediaHtml = '';
-            if (item.coverType === 'video') {
-                mediaHtml = `<video src="${item.coverThumb}" class="w-full h-auto object-contain rounded-lg transition-transform duration-700 group-hover:scale-105" loop muted playsinline onmouseover="this.play()" onmouseout="this.pause()"></video>`;
-            } else if (item.coverType === 'youtube') {
-                mediaHtml = `
-                    <div class="relative w-full h-auto object-contain rounded-lg transition-transform duration-700 group-hover:scale-105 overflow-hidden filter grayscale-[20%] group-hover:grayscale-0">
-                        <img src="${item.coverThumb}" alt="${item.title}" class="w-full h-auto">
-                        <div class="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/10 transition-colors duration-300">
-                            <i class="ph ph-play-circle text-5xl text-white drop-shadow-md"></i>
-                        </div>
-                    </div>`;
-            } else {
-                mediaHtml = `<img src="${item.coverThumb}" alt="${item.title}" class="w-full h-auto object-contain rounded-lg transition-transform duration-700 group-hover:scale-105 filter grayscale-[20%] group-hover:grayscale-0">`;
-            }
-
-            card.innerHTML = `
-                <div class="relative overflow-hidden bg-brand-bg mb-4 rounded-lg shadow-sm">
-                    ${mediaHtml}
-                    <div class="absolute inset-0 bg-brand-text/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-lg pointer-events-none flex items-center justify-center">
-                            <span class="text-white bg-black/50 px-4 py-2 rounded-full text-sm font-light tracking-widest backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-y-4 group-hover:translate-y-0">查看所有作品</span>
-                    </div>
-                </div>
-                <div class="px-2">
-                    <span class="text-xs font-bold tracking-[0.2em] text-brand-muted uppercase mb-2 block">${item.category}</span>
-                    <h3 class="text-xl font-serif font-bold text-brand-text group-hover:text-brand-accent transition-colors">${item.title}</h3>
-                </div>
-            `;
-            card.onclick = () => openModal(item);
-            selectedGrid.appendChild(card);
-        });
-    }
-</script>
-
+    </script>
 </body>
 </html>
