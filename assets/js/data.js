@@ -1941,6 +1941,20 @@ const portfolioData = [
                                 "srcFull": "https://www.youtube.com/embed/SNCWlyxl6sM"
                         }
                 ]
+        },
+        {
+                "id": 73,
+                "title": "114 北大創｜我的告別世 主視覺",
+                "category": "海報",
+                "coverType": "image",
+                "coverThumb": "assets/portfolio/其他設計/主視覺_da0b79_thumb.jpg",
+                "items": [
+                        {
+                                "type": "image",
+                                "srcThumb": "assets/portfolio/其他設計/主視覺_da0b79_thumb.jpg",
+                                "srcFull": "assets/portfolio/其他設計/主視覺_da0b79_full.jpg"
+                        }
+                ]
         }
 ];
 

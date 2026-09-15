@@ -243,8 +243,10 @@
     document.addEventListener('DOMContentLoaded', () => {
         const selectedGrid = document.getElementById('selected-works-grid');
         if (selectedGrid) {
-            // Render first 4 items directly
-            portfolioData.slice(0, 4).forEach(item => {
+            // Render user's specified 4 featured items
+            const featuredIds = [4, 47, 73, 28];
+            const featuredItems = featuredIds.map(id => portfolioData.find(item => item.id === id)).filter(Boolean);
+            featuredItems.forEach(item => {
                 const card = document.createElement('div');
                 card.className = 'group cursor-pointer flex flex-col fade-in break-inside-avoid mb-8';
                 
