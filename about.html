@@ -3,10 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>游佳柔 Essie | Graphic Design Portfolio</title>
+    <title>About | 游佳柔 Essie</title>
+    <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+
+    <!-- SEO & Open Graph Meta Tags -->
+    <meta name="description" content="關於游佳柔 Essie：世新傳管背景，在傳播邏輯中探索視覺美學的設計實踐者。2025 國際金犢獎入圍，跨足品牌識別、商業主視覺、社群圖文。">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="About | 游佳柔 Essie">
+    <meta property="og:description" content="關於游佳柔 Essie：世新傳管背景，在傳播邏輯中探索視覺美學的設計實踐者。2025 國際金犢獎入圍，跨足品牌識別、商業主視覺、社群圖文。">
+    <meta property="og:image" content="assets/images/profile.jpg">
+
     <!-- 引入 Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- 引入 Google Fonts (加入更優雅的字體組合) -->
+    <!-- 引入 Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
     <!-- 引入 Phosphor Icons 圖示庫 -->
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
@@ -46,7 +55,6 @@
         ::-webkit-scrollbar-thumb { background: #E5E7EB; border-radius: 10px; }
         ::-webkit-scrollbar-thumb:hover { background: #D1D5DB; }
     </style>
-<title>About | Essie Yu</title>
 </head>
 <body class="text-brand-text font-sans antialiased min-h-screen flex flex-col bg-brand-bg">
 <header class="fixed top-0 w-full z-40 bg-brand-bg/90 backdrop-blur-md border-b border-gray-100/50 transition-all duration-300">
@@ -271,7 +279,13 @@
                 <div class="flex flex-col justify-center space-y-8 md:pl-12 md:border-l border-gray-700">
                     <div>
                         <span class="block text-xs font-bold tracking-[0.2em] text-gray-500 uppercase mb-2">Email</span>
-                        <a href="mailto:carol.yu901223@gmail.com" class="text-xl md:text-2xl font-light hover:text-brand-accent transition-colors">carol.yu901223@gmail.com</a>
+                        <div class="flex items-center gap-3 flex-wrap">
+                            <a href="mailto:carol.yu901223@gmail.com" class="text-xl md:text-2xl font-light hover:text-brand-accent transition-colors">carol.yu901223@gmail.com</a>
+                            <button type="button" class="copy-email-action text-xs text-gray-400 hover:text-white px-2.5 py-1 rounded border border-gray-700 hover:border-gray-500 transition-colors inline-flex items-center gap-1.5 focus:outline-none active:scale-95" data-email="carol.yu901223@gmail.com" title="複製 Email">
+                                <i class="ph ph-copy text-sm"></i>
+                                <span>複製</span>
+                            </button>
+                        </div>
                     </div>
                     <div>
                         <span class="block text-xs font-bold tracking-[0.2em] text-gray-500 uppercase mb-2">Phone</span>
@@ -294,6 +308,12 @@
             </div>
         </section>
 </main>
+
+<!-- 回到頂部按鈕 (Back to Top) -->
+<button id="back-to-top" class="fixed bottom-6 right-6 z-40 p-3.5 rounded-full bg-brand-text/90 text-white shadow-xl backdrop-blur-md opacity-0 pointer-events-none translate-y-4 transition-all duration-300 hover:bg-brand-accent hover:scale-110 active:scale-95 focus:outline-none" aria-label="回到頂部">
+    <i class="ph ph-arrow-up text-lg font-bold"></i>
+</button>
+
 <script src="assets/js/nav.js"></script>
 </body>
 </html>
