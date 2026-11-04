@@ -997,6 +997,90 @@ const portfolioData = [
 		]
 	},
 	{
+		"id": 74,
+		"title": "信仰故事 生命篇",
+		"category": "社群圖文",
+		"coverType": "image",
+		"coverThumb": "assets/portfolio/社群圖文/third_story_-01_5dae41_thumb.jpg",
+		"items": [
+			{
+				"type": "image",
+				"srcThumb": "assets/portfolio/社群圖文/third_story_-01_5dae41_thumb.jpg",
+				"srcFull": "assets/portfolio/社群圖文/third_story_-01_5dae41_full.jpg"
+			},
+			{
+				"type": "image",
+				"srcThumb": "assets/portfolio/社群圖文/third_story_-02_59f020_thumb.jpg",
+				"srcFull": "assets/portfolio/社群圖文/third_story_-02_59f020_full.jpg"
+			},
+			{
+				"type": "image",
+				"srcThumb": "assets/portfolio/社群圖文/third_story_-03_5708eb_thumb.jpg",
+				"srcFull": "assets/portfolio/社群圖文/third_story_-03_5708eb_full.jpg"
+			},
+			{
+				"type": "image",
+				"srcThumb": "assets/portfolio/社群圖文/third_story_-04_dd37a0_thumb.jpg",
+				"srcFull": "assets/portfolio/社群圖文/third_story_-04_dd37a0_full.jpg"
+			},
+			{
+				"type": "image",
+				"srcThumb": "assets/portfolio/社群圖文/third_story_-05_b4cf2a_thumb.jpg",
+				"srcFull": "assets/portfolio/社群圖文/third_story_-05_b4cf2a_full.jpg"
+			},
+			{
+				"type": "image",
+				"srcThumb": "assets/portfolio/社群圖文/third_story_-06_e4c66d_thumb.jpg",
+				"srcFull": "assets/portfolio/社群圖文/third_story_-06_e4c66d_full.jpg"
+			},
+			{
+				"type": "image",
+				"srcThumb": "assets/portfolio/社群圖文/third_story_-07_4cef93_thumb.jpg",
+				"srcFull": "assets/portfolio/社群圖文/third_story_-07_4cef93_full.jpg"
+			},
+			{
+				"type": "image",
+				"srcThumb": "assets/portfolio/社群圖文/third_story_-08_9411bb_thumb.jpg",
+				"srcFull": "assets/portfolio/社群圖文/third_story_-08_9411bb_full.jpg"
+			},
+			{
+				"type": "image",
+				"srcThumb": "assets/portfolio/社群圖文/third_story_-09_4e7984_thumb.jpg",
+				"srcFull": "assets/portfolio/社群圖文/third_story_-09_4e7984_full.jpg"
+			},
+			{
+				"type": "image",
+				"srcThumb": "assets/portfolio/社群圖文/third_story_-10_d17231_thumb.jpg",
+				"srcFull": "assets/portfolio/社群圖文/third_story_-10_d17231_full.jpg"
+			},
+			{
+				"type": "image",
+				"srcThumb": "assets/portfolio/社群圖文/third_story_-11_ed51fa_thumb.jpg",
+				"srcFull": "assets/portfolio/社群圖文/third_story_-11_ed51fa_full.jpg"
+			},
+			{
+				"type": "image",
+				"srcThumb": "assets/portfolio/社群圖文/third_story_-12_5a8d4c_thumb.jpg",
+				"srcFull": "assets/portfolio/社群圖文/third_story_-12_5a8d4c_full.jpg"
+			},
+			{
+				"type": "image",
+				"srcThumb": "assets/portfolio/社群圖文/third_story_-13_97ad74_thumb.jpg",
+				"srcFull": "assets/portfolio/社群圖文/third_story_-13_97ad74_full.jpg"
+			},
+			{
+				"type": "image",
+				"srcThumb": "assets/portfolio/社群圖文/third_story_-14_e2c683_thumb.jpg",
+				"srcFull": "assets/portfolio/社群圖文/third_story_-14_e2c683_full.jpg"
+			},
+			{
+				"type": "image",
+				"srcThumb": "assets/portfolio/社群圖文/third_story_-15_0ddc8b_thumb.jpg",
+				"srcFull": "assets/portfolio/社群圖文/third_story_-15_0ddc8b_full.jpg"
+			}
+		]
+	},
+	{
 		"id": 23,
 		"title": "114 北大創社群圖",
 		"category": "社群圖文",
