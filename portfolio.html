@@ -63,11 +63,15 @@
             <a href="index.html" class="text-lg font-serif font-bold tracking-widest uppercase hover:opacity-80 transition-opacity">
                 Essie Yu<span class="text-brand-accent">.</span>
             </a>
-            <nav class="hidden md:flex space-x-10">
+            <nav class="hidden md:flex space-x-8 items-center">
                 <a href="index.html" class="text-sm font-medium text-brand-muted hover:text-brand-text transition-colors tracking-widest uppercase">Home</a>
                 <a href="about.html" class="text-sm font-medium text-brand-muted hover:text-brand-text transition-colors tracking-widest uppercase">About</a>
                 <a href="portfolio.html" class="text-sm font-medium text-brand-accent hover:text-brand-text transition-colors tracking-widest uppercase">Portfolio</a>
                 <a href="#contact" class="text-sm font-medium text-brand-muted hover:text-brand-text transition-colors tracking-widest uppercase">Contact</a>
+                <button type="button" onclick="openDownloadModal()" class="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-widest px-3.5 py-1.5 rounded-full border border-brand-accent text-brand-accent hover:bg-brand-accent hover:text-white transition-all shadow-sm">
+                    <i class="ph ph-file-pdf text-sm"></i>
+                    <span>下載作品集</span>
+                </button>
             </nav>
             <button id="mobile-menu-btn" type="button" class="md:hidden p-2 -mr-2 text-brand-text hover:text-brand-accent focus:outline-none transition-colors" aria-label="切換選單" aria-expanded="false">
                 <i id="mobile-menu-icon" class="ph ph-list text-2xl block pointer-events-none"></i>
@@ -92,6 +96,10 @@
                     <span>Contact</span>
                     <i class="ph ph-arrow-right text-xs opacity-60"></i>
                 </a>
+                <button type="button" onclick="openDownloadModal()" class="w-full mt-2 inline-flex items-center justify-center gap-2 text-sm font-medium tracking-widest uppercase py-3 rounded-xl bg-brand-accent text-white shadow-md hover:bg-[#7871D4] transition-colors">
+                    <i class="ph ph-file-pdf text-base"></i>
+                    <span>下載作品集 (PDF)</span>
+                </button>
             </nav>
         </div>
     </header>
@@ -99,7 +107,7 @@
     <main class="flex-grow pt-24">
         <section id="work" class="bg-white py-12 md:py-24 fade-in" style="animation-delay: 0.2s;">
             <div class="max-w-7xl mx-auto px-6 lg:px-12">
-                <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-8">
+                <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-8">
                     <div>
                         <h2 class="text-xs font-bold tracking-[0.2em] text-brand-muted uppercase mb-4">Project Showcase</h2>
                         <h3 class="text-4xl font-serif font-bold">精選作品</h3>
@@ -109,6 +117,28 @@
                     <div id="filter-container" class="flex flex-wrap gap-x-6 gap-y-3">
                         <!-- 動態生成 -->
                     </div>
+                </div>
+
+                <!-- 作品集下載引導橫幅 (Sleek Download Callout) -->
+                <div class="mb-14 p-6 bg-brand-bg border border-gray-200/80 rounded-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-5 shadow-sm">
+                    <div class="flex items-start sm:items-center gap-4">
+                        <div class="w-12 h-12 rounded-xl bg-brand-accent/15 flex items-center justify-center text-brand-accent shrink-0 text-2xl">
+                            <i class="ph ph-file-pdf"></i>
+                        </div>
+                        <div>
+                            <div class="flex items-center gap-2">
+                                <h4 class="text-base font-serif font-bold text-brand-text">作品集離線審閱與 PDF 下載</h4>
+                                <span class="px-2 py-0.5 bg-brand-accent text-white text-[10px] font-bold tracking-wider rounded uppercase">NEW</span>
+                            </div>
+                            <p class="text-xs text-brand-muted mt-1 leading-relaxed">
+                                已針對 A4 橫向規格完整排版！提供<strong>「精選推薦版」</strong>、<strong>「完整全收錄版」</strong>或<strong>「自選特定分類」</strong>，一鍵另存為清晰 PDF。
+                            </p>
+                        </div>
+                    </div>
+                    <button type="button" onclick="openDownloadModal()" class="inline-flex items-center justify-center gap-2 bg-brand-text hover:bg-black text-white px-5 py-3 rounded-xl text-xs font-bold tracking-wider uppercase transition-all shadow-md active:scale-95 shrink-0">
+                        <i class="ph ph-download-simple text-base"></i>
+                        <span>開啟下載專區</span>
+                    </button>
                 </div>
 
                 <!-- 作品網格 (瀑布流 / 高級感卡片設計) -->
@@ -187,6 +217,127 @@
             <!-- 內容容器 -->
             <div id="modal-body" class="w-full block text-center px-4 py-10 sm:px-12 sm:py-14 relative">
                 <!-- 動態注入內容 -->
+            </div>
+        </div>
+    </div>
+
+    <!-- 下載作品集選擇彈窗 (Download Portfolio Modal) -->
+    <div id="download-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 opacity-0 pointer-events-none transition-opacity duration-300">
+        <!-- Backdrop -->
+        <div id="download-modal-backdrop" class="absolute inset-0 bg-brand-text/80 backdrop-blur-sm cursor-pointer" onclick="closeDownloadModal()"></div>
+
+        <!-- Modal Content Card -->
+        <div id="download-modal-content" class="relative bg-brand-bg w-full max-w-2xl rounded-2xl shadow-2xl border border-gray-100 overflow-hidden transform scale-95 transition-transform duration-300 flex flex-col max-h-[90vh]">
+            <!-- Header -->
+            <div class="px-6 py-5 border-b border-gray-200/80 flex items-center justify-between bg-white">
+                <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-full bg-brand-accent/15 flex items-center justify-center text-brand-accent">
+                        <i class="ph ph-file-pdf text-xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-base font-serif font-bold text-brand-text">下載作品集 (PDF)</h3>
+                        <p class="text-[11px] text-gray-500">標準 A4 橫向編排 · 清楚分類與完整版面</p>
+                    </div>
+                </div>
+                <button type="button" onclick="closeDownloadModal()" class="text-gray-400 hover:text-brand-text p-1.5 rounded-lg hover:bg-gray-100 transition-colors">
+                    <i class="ph ph-x text-lg"></i>
+                </button>
+            </div>
+
+            <!-- Body -->
+            <div class="p-6 overflow-y-auto space-y-4">
+                <!-- 方案一：精選推薦版 -->
+                <div class="border-2 border-brand-accent/40 bg-brand-accent/5 rounded-xl p-5 hover:border-brand-accent transition-all relative group cursor-pointer" onclick="goToExport('featured')">
+                    <div class="absolute top-3 right-3 bg-brand-accent text-white text-[10px] font-bold tracking-wider px-2 py-0.5 rounded uppercase">
+                        推薦初審
+                    </div>
+                    <div class="flex items-start gap-4">
+                        <div class="w-10 h-10 rounded-lg bg-white border border-brand-accent/30 flex items-center justify-center text-brand-accent shrink-0 shadow-sm text-xl">
+                            <i class="ph-fill ph-sparkle"></i>
+                        </div>
+                        <div class="flex-grow pr-16">
+                            <h4 class="text-sm font-bold text-brand-text group-hover:text-brand-accent transition-colors flex items-center gap-2">
+                                ✨ 精選推薦版 (Featured Deck)
+                            </h4>
+                            <p class="text-xs text-gray-600 mt-1 leading-relaxed">
+                                嚴選金犢獎入圍作品、代表性商案（安視優、朵蔓、KOZI、FScode）與核心社群圖文。
+                            </p>
+                            <div class="flex items-center gap-3 mt-3 text-[11px] text-brand-muted font-mono">
+                                <span>• 精簡 11 頁 A4 橫式</span>
+                                <span>• 8 大核心代表作 · 快速閱覽無負擔</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-3 pt-3 border-t border-brand-accent/20 flex justify-end">
+                        <span class="inline-flex items-center gap-1.5 text-xs font-bold text-brand-accent group-hover:translate-x-1 transition-transform">
+                            開啟並另存為 PDF <i class="ph ph-arrow-right"></i>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- 方案二：完整全收錄版 -->
+                <div class="border border-gray-200 bg-white rounded-xl p-5 hover:border-brand-accent transition-all relative group cursor-pointer" onclick="goToExport('all')">
+                    <div class="flex items-start gap-4">
+                        <div class="w-10 h-10 rounded-lg bg-gray-50 border border-gray-200 flex items-center justify-center text-gray-700 shrink-0 shadow-sm text-xl">
+                            <i class="ph ph-books"></i>
+                        </div>
+                        <div class="flex-grow">
+                            <h4 class="text-sm font-bold text-brand-text group-hover:text-brand-accent transition-colors flex items-center gap-2">
+                                📚 完整全收錄版 (Full Archive)
+                            </h4>
+                            <p class="text-xs text-gray-600 mt-1 leading-relaxed">
+                                收錄全部 8 大分類、74 個專案主題（270+ 張作品圖檔完整呈現）。
+                            </p>
+                            <div class="flex items-center gap-3 mt-3 text-[11px] text-brand-muted font-mono">
+                                <span>• 全分類扉頁與目錄</span>
+                                <span>• 完整專案存檔</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-3 pt-3 border-t border-gray-100 flex justify-end">
+                        <span class="inline-flex items-center gap-1.5 text-xs font-bold text-brand-text group-hover:text-brand-accent group-hover:translate-x-1 transition-transform">
+                            開啟完整排版 <i class="ph ph-arrow-right"></i>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- 方案三：自選分類 -->
+                <div class="border border-gray-200 bg-white rounded-xl p-5">
+                    <div class="flex items-start gap-4 mb-3">
+                        <div class="w-10 h-10 rounded-lg bg-gray-50 border border-gray-200 flex items-center justify-center text-gray-700 shrink-0 shadow-sm text-xl">
+                            <i class="ph ph-sliders"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-sm font-bold text-brand-text">
+                                🎯 自選分類客製化輸出 (Custom Selection)
+                            </h4>
+                            <p class="text-xs text-gray-600 mt-1">
+                                依照特定職缺需求，自由勾選您要展示的分類項目：
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- 勾選標籤 -->
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-2" id="modal-cat-checkboxes">
+                        <!-- 動態生成分類勾選 -->
+                    </div>
+
+                    <div class="mt-4 pt-3 border-t border-gray-100 flex items-center justify-between">
+                        <div class="text-[11px] text-gray-400">
+                            <button type="button" onclick="modalSelectAllCats(true)" class="text-brand-accent hover:underline mr-2">全選</button>
+                            <button type="button" onclick="modalSelectAllCats(false)" class="text-gray-400 hover:underline">清空</button>
+                        </div>
+                        <button type="button" onclick="goToExportCustom()" class="inline-flex items-center gap-1.5 text-xs font-bold bg-brand-text hover:bg-black text-white px-4 py-2 rounded-lg transition-colors">
+                            輸出所選分類 <i class="ph ph-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="px-6 py-3 bg-gray-50 border-t border-gray-200 flex items-center justify-between text-[11px] text-gray-500">
+                <span>💡 點擊後會開啟排版專頁，請依指示按「另存為 PDF」</span>
+                <button type="button" onclick="closeDownloadModal()" class="text-gray-400 hover:text-gray-600">取消</button>
             </div>
         </div>
     </div>
@@ -405,15 +556,72 @@
         btnCloseModal.addEventListener('click', closeModal);
         modalBackdrop.addEventListener('click', closeModal);
 
+        // 下載作品集 Modal 邏輯
+        const downloadModal = document.getElementById('download-modal');
+        const downloadModalContent = document.getElementById('download-modal-content');
+
+        function openDownloadModal() {
+            // 初始化分類勾選選項
+            const catContainer = document.getElementById('modal-cat-checkboxes');
+            if (catContainer && catContainer.children.length === 0) {
+                const availableCats = categories.filter(c => c !== '全部');
+                catContainer.innerHTML = availableCats.map(cat => `
+                    <label class="inline-flex items-center gap-1.5 text-xs text-brand-text p-2 bg-gray-50 rounded-lg cursor-pointer hover:bg-gray-100 transition-colors select-none">
+                        <input type="checkbox" value="${cat}" class="modal-cat-cb rounded text-brand-accent focus:ring-0" checked>
+                        <span class="font-medium truncate">${cat}</span>
+                    </label>
+                `).join('');
+            }
+
+            downloadModal.classList.remove('opacity-0', 'pointer-events-none');
+            downloadModalContent.classList.remove('scale-95');
+            downloadModalContent.classList.add('scale-100');
+            document.body.classList.add('modal-open');
+        }
+
+        function closeDownloadModal() {
+            downloadModal.classList.add('opacity-0', 'pointer-events-none');
+            downloadModalContent.classList.remove('scale-100');
+            downloadModalContent.classList.add('scale-95');
+            document.body.classList.remove('modal-open');
+        }
+
+        function modalSelectAllCats(val) {
+            document.querySelectorAll('.modal-cat-cb').forEach(cb => cb.checked = val);
+        }
+
+        function goToExport(mode) {
+            closeDownloadModal();
+            window.open(`print.html?mode=${mode}`, '_blank');
+        }
+
+        function goToExportCustom() {
+            const checked = Array.from(document.querySelectorAll('.modal-cat-cb:checked')).map(cb => cb.value);
+            if (checked.length === 0) {
+                alert('請至少勾選一個分類！');
+                return;
+            }
+            closeDownloadModal();
+            window.open(`print.html?cats=${encodeURIComponent(checked.join(','))}`, '_blank');
+        }
+
         // 鍵盤操作 (← 上一件, → 下一件, Esc 關閉)
         document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                if (!downloadModal.classList.contains('pointer-events-none')) {
+                    closeDownloadModal();
+                    return;
+                }
+                if (!modal.classList.contains('hidden')) {
+                    closeModal();
+                    return;
+                }
+            }
             if (modal.classList.contains('hidden')) return;
             if (e.key === 'ArrowLeft') {
                 navigateModal(-1);
             } else if (e.key === 'ArrowRight') {
                 navigateModal(1);
-            } else if (e.key === 'Escape') {
-                closeModal();
             }
         });
 

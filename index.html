@@ -63,11 +63,15 @@
             <a href="index.html" class="text-lg font-serif font-bold tracking-widest uppercase hover:opacity-80 transition-opacity">
                 Essie Yu<span class="text-brand-accent">.</span>
             </a>
-            <nav class="hidden md:flex space-x-10">
+            <nav class="hidden md:flex space-x-8 items-center">
                 <a href="index.html" class="text-sm font-medium text-brand-accent hover:text-brand-text transition-colors tracking-widest uppercase">Home</a>
                 <a href="about.html" class="text-sm font-medium text-brand-muted hover:text-brand-text transition-colors tracking-widest uppercase">About</a>
                 <a href="portfolio.html" class="text-sm font-medium text-brand-muted hover:text-brand-text transition-colors tracking-widest uppercase">Portfolio</a>
                 <a href="#contact" class="text-sm font-medium text-brand-muted hover:text-brand-text transition-colors tracking-widest uppercase">Contact</a>
+                <a href="print.html" target="_blank" class="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-widest px-3.5 py-1.5 rounded-full border border-brand-accent text-brand-accent hover:bg-brand-accent hover:text-white transition-all shadow-sm">
+                    <i class="ph ph-file-pdf text-sm"></i>
+                    <span>下載作品集</span>
+                </a>
             </nav>
             <button id="mobile-menu-btn" type="button" class="md:hidden p-2 -mr-2 text-brand-text hover:text-brand-accent focus:outline-none transition-colors" aria-label="切換選單" aria-expanded="false">
                 <i id="mobile-menu-icon" class="ph ph-list text-2xl block pointer-events-none"></i>
@@ -91,6 +95,10 @@
                 <a href="#contact" class="mobile-nav-link text-base font-medium tracking-widest uppercase flex items-center justify-between py-2 text-brand-muted hover:text-brand-text transition-colors">
                     <span>Contact</span>
                     <i class="ph ph-arrow-right text-xs opacity-60"></i>
+                </a>
+                <a href="print.html" target="_blank" class="w-full mt-2 inline-flex items-center justify-center gap-2 text-sm font-medium tracking-widest uppercase py-3 rounded-xl bg-brand-accent text-white shadow-md hover:bg-[#7871D4] transition-colors">
+                    <i class="ph ph-file-pdf text-base"></i>
+                    <span>下載作品集 (PDF)</span>
                 </a>
             </nav>
         </div>

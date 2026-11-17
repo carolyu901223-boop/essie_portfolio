@@ -88,6 +88,22 @@ const portfolioData = [
 		]
 	},
 	{
+		"id": 75,
+		"title": "SLOW DOWN 慢下來",
+		"category": "其他設計",
+		"coverType": "image",
+		"coverThumb": "assets/portfolio/其他設計/慢下來_SLOW_DOWN_thumb.jpg",
+		"items": [
+			{
+				"type": "image",
+				"srcThumb": "assets/portfolio/其他設計/慢下來_SLOW_DOWN_thumb.jpg",
+				"srcFull": "assets/portfolio/其他設計/慢下來_SLOW_DOWN_full.jpg"
+			}
+		],
+		"role": "平面設計、主題海報、字體排版（個人自主練習）",
+		"context": "《SLOW DOWN》以城市中忙碌人群與獨自行走的人物為視覺主體，探討現代生活速度與個人節奏。畫面中央融入經高斯模糊處理的中文字「慢」，使文字與街道光影紋理若隱若現交疊；將「SLOW」四字母分散排列創造不規則的閱讀節奏，呼應副標語「Find your own rhythm」——慢下來並非停止前進，而是在快速變動的生活中找到屬於自己的節奏與呼吸感。"
+	},
+	{
 		"id": 7,
 		"title": "教會營隊",
 		"category": "其他設計",

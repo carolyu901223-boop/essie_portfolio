@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>作品集排版與輸出 (PDF) | 游佳柔 Essie Yu</title>
+    <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;600;700;900&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Noto Sans TC"', 'sans-serif'],
+                        serif: ['"Playfair Display"', 'serif'],
+                    },
+                    colors: {
+                        brand: {
+                            bg: '#FDFCF8',
+                            text: '#1C1C1C',
+                            accent: '#8A84E2',
+                            accentLight: '#F3F2FD',
+                            muted: '#71717A',
+                            border: '#E4E4E7'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* 基礎樣式 */
+        body {
+            background-color: #E2E2DF;
+            color: #1C1C1C;
+            font-family: 'Noto Sans TC', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* A4 橫向規格：297mm x 210mm */
+        .a4-page {
+            width: 297mm;
+            height: 210mm;
+            min-height: 210mm;
+            max-height: 210mm;
+            margin: 24px auto;
+            background: #FDFCF8;
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.2), 0 4px 10px rgba(0, 0, 0, 0.05);
+            padding: 14mm 18mm;
+            box-sizing: border-box;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            page-break-after: always;
+            break-after: page;
+        }
+
+        /* 嚴格控制列印時的顏色與分頁 */
+        @media print {
+            @page {
+                size: A4 landscape;
+                margin: 0;
+            }
+            html, body {
+                background: #FFFFFF !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            .no-print {
+                display: none !important;
+            }
+            .a4-page {
+                width: 297mm !important;
+                height: 210mm !important;
+                min-height: 210mm !important;
+                max-height: 210mm !important;
+                margin: 0 !important;
+                box-shadow: none !important;
+                page-break-after: always !important;
+                break-after: page !important;
+                border: none !important;
+                padding: 14mm 18mm !important;
+            }
+        }
+
+        /* 圖片最大防破版控制 */
+        .fit-img {
+            object-fit: contain;
+            max-height: 100%;
+            max-width: 100%;
+        }
+
+        /* 細部捲動條 */
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #E2E2DF; }
+        ::-webkit-scrollbar-thumb { background: #A1A1AA; border-radius: 4px; }
+    </style>
+
+    <!-- 載入作品資料 -->
+    <script src="assets/js/data.js"></script>
+</head>
+<body class="antialiased">
+
+    <!-- 頂部控制面板（列印時自動隱藏） -->
+    <header class="no-print sticky top-0 z-50 bg-[#1C1C1C] text-white shadow-xl border-b border-gray-800">
+        <div class="max-w-7xl mx-auto px-6 py-3 flex flex-wrap items-center justify-between gap-4">
+            
+            <div class="flex items-center gap-4">
+                <a href="portfolio.html" class="inline-flex items-center gap-2 text-xs uppercase tracking-widest text-gray-400 hover:text-white transition-colors bg-white/10 px-3 py-1.5 rounded">
+                    <i class="ph ph-arrow-left"></i>
+                    返回作品集
+                </a>
+                <div>
+                    <h1 class="text-sm font-serif font-bold tracking-wider">
+                        Essie Yu<span class="text-brand-accent">.</span> 
+                        <span class="font-sans font-normal text-xs text-gray-400 ml-2">PDF 排版預覽與下載</span>
+                    </h1>
+                </div>
+            </div>
+
+            <!-- 模式切換與統計 -->
+            <div class="flex items-center gap-3">
+                <div class="bg-gray-800/80 p-1 rounded-lg flex items-center text-xs">
+                    <button id="mode-featured-btn" onclick="switchMode('featured')" class="px-3 py-1 rounded transition-colors font-medium text-white bg-brand-accent">
+                        ✨ 精選推薦版
+                    </button>
+                    <button id="mode-all-btn" onclick="switchMode('all')" class="px-3 py-1 rounded transition-colors font-medium text-gray-300 hover:text-white">
+                        📚 完整全收錄
+                    </button>
+                    <button id="mode-custom-btn" onclick="toggleCustomFilter()" class="px-3 py-1 rounded transition-colors font-medium text-gray-300 hover:text-white flex items-center gap-1">
+                        <i class="ph ph-sliders"></i> 自選分類
+                    </button>
+                </div>
+
+                <button onclick="window.print()" class="inline-flex items-center gap-2 bg-brand-accent hover:bg-[#7871D4] text-white px-5 py-2 rounded text-xs font-bold tracking-wider uppercase transition-transform active:scale-95 shadow-md">
+                    <i class="ph ph-printer text-base"></i>
+                    另存為 PDF / 列印
+                </button>
+            </div>
+        </div>
+
+        <!-- 自選分類展開面板 (預設隱藏) -->
+        <div id="custom-filter-panel" class="hidden border-t border-gray-800 bg-[#252525] px-6 py-3">
+            <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4">
+                <div class="flex flex-wrap items-center gap-3" id="category-checkboxes">
+                    <!-- 動態生成勾選框 -->
+                </div>
+                <div class="flex items-center gap-3">
+                    <button onclick="selectAllCategories(true)" class="text-xs text-gray-400 hover:text-white underline">全選</button>
+                    <button onclick="selectAllCategories(false)" class="text-xs text-gray-400 hover:text-white underline">全清空</button>
+                    <button onclick="applyCustomFilter()" class="bg-white text-black px-3 py-1 rounded text-xs font-bold hover:bg-gray-200">套用選擇</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 列印操作指引提示列 -->
+        <div class="bg-brand-accent/20 border-t border-brand-accent/30 px-6 py-2 text-xs text-brand-accentLight flex items-center justify-between">
+            <div class="max-w-7xl mx-auto w-full flex items-center justify-between flex-wrap gap-2">
+                <span class="flex items-center gap-2">
+                    <i class="ph-fill ph-info text-brand-accent text-sm"></i>
+                    <span><strong>PDF 輸出秘訣：</strong>點擊「另存為 PDF / 列印」後，目標請選<strong>「另存為 PDF」</strong>，版面選擇<strong>「橫向」</strong>，並務必勾選<strong>「背景圖形」</strong>即可產出完美排版。</span>
+                </span>
+                <span id="page-stat-badge" class="font-mono text-gray-300">正在載入頁面...</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- 頁面容器 (動態渲染 A4 橫向頁面) -->
+    <main id="pages-container" class="py-6">
+        <!-- 頁面由 JavaScript 動態生成 -->
+    </main>
+
+    <script>
+        // 分類對應資訊 (中英名稱與介紹)
+        const categoryMeta = {
+            '商案': {
+                en: 'COMMERCIAL DESIGN',
+                tagline: '品牌主視覺 · 電商行銷 · 包裝與產品設計',
+                desc: '針對真實商業情境，在傳播邏輯中探索視覺美學，兼顧受眾溝通、品牌價值與轉化成果。'
+            },
+            '海報': {
+                en: 'KEY VISION & POSTER',
+                tagline: '金犢獎入圍 · 大型展演活動主視覺',
+                desc: '以精準的傳播洞察出發，結合象徵性符號與色彩張力，創造具有強烈視覺記憶度的海報作品。'
+            },
+            '社群圖文': {
+                en: 'SOCIAL MEDIA CONTENT',
+                tagline: '系列圖文 · 品牌社群公版 · 節慶行銷企劃',
+                desc: '掌握數位社群瀏覽節奏，以清楚的資訊階層、吸睛的首圖設計與連貫的美學風格驅動互動。'
+            },
+            '商品設計': {
+                en: 'MERCHANDISE & PACKAGING',
+                tagline: '周邊實體化 · 契服設計 · 節慶禮品與包裝',
+                desc: '從平面視覺延伸至實體載體，考量材質工藝、色彩還原與使用者互動體驗的完整落地。'
+            },
+            'EDM': {
+                en: 'EVENT DM & FLYERS',
+                tagline: '活動宣傳 DM · 營隊邀請函 · 講座文宣',
+                desc: '結構嚴謹、重點突出。在有限的單頁篇幅內，精準傳遞活動亮點、時間地點與行動呼籲。'
+            },
+            'logo': {
+                en: 'BRAND IDENTITY & LOGO',
+                tagline: '標誌識別 · 核心精神象徵 · 視覺延展',
+                desc: '提煉組織與品牌的精神核心，透過簡約洗鍊的幾何結構，打造經得起時間考驗的識別標誌。'
+            },
+            '其他設計': {
+                en: 'SPECIAL PROJECTS & OTHERS',
+                tagline: '營隊手冊 · 限時動態 · 邀請卡 · 校園專案',
+                desc: '多元設計媒介的靈活實踐，在不同尺寸與載體中持續維持精緻的視覺品質。'
+            },
+            '影片': {
+                en: 'VIDEO PRODUCTION & REELS',
+                tagline: '短影音企劃 · 宣傳片剪輯 · 世鑫獎入圍',
+                desc: '結合音樂節奏、文字張力與運鏡剪接，賦予靜態視覺生動的動態生命力。'
+            }
+        };
+
+        // 精選專案 ID 清單 (精簡精華版：嚴選 8 大代表作，控制在 11 頁內快速閱覽)
+        // 涵蓋：金犢獎入圍、北大創主視覺、安視優、朵蔓、KOZI、FScode香水、烈火特會社群、世新團契契服
+        const featuredProjectIds = [
+            4,   // 金犢獎 入圍海報 (國際競賽入圍)
+            73,  // 114 北大創｜我的告別世 主視覺 (活動主視覺)
+            49,  // 安視優 (Acuvue) 商案 (跨國知名品牌)
+            51,  // 朵蔓 商案 (洗護品牌商業系列)
+            50,  // KOZI 商案 (保養品商業提案)
+            47,  // FScode 香水包裝 (實體產品包裝)
+            17,  // 烈火特會 貼文 (高張力系列社群圖文)
+            65   // 世新團契 契服設計 (實體周邊服飾)
+        ];
+
+        let currentMode = 'featured'; // 'featured', 'all', 'custom'
+        let selectedCategories = Object.keys(categoryMeta);
+
+        // 讀取 URL 參數 (例如 ?mode=all 或 ?cats=商案,海報)
+        function initFromUrl() {
+            const params = new URLSearchParams(window.location.search);
+            const mode = params.get('mode');
+            const cats = params.get('cats');
+
+            if (cats) {
+                currentMode = 'custom';
+                selectedCategories = cats.split(',').filter(c => categoryMeta[c]);
+                document.getElementById('custom-filter-panel').classList.remove('hidden');
+            } else if (mode === 'all') {
+                currentMode = 'all';
+            } else {
+                currentMode = 'featured';
+            }
+        }
+
+        // 切換模式
+        function switchMode(mode) {
+            currentMode = mode;
+            updateModeButtons();
+            if (mode !== 'custom') {
+                document.getElementById('custom-filter-panel').classList.add('hidden');
+            }
+            renderAllPages();
+        }
+
+        // 更新頂部模式按鈕外觀
+        function updateModeButtons() {
+            const featuredBtn = document.getElementById('mode-featured-btn');
+            const allBtn = document.getElementById('mode-all-btn');
+            const customBtn = document.getElementById('mode-custom-btn');
+
+            [featuredBtn, allBtn, customBtn].forEach(b => {
+                b.className = "px-3 py-1 rounded transition-colors font-medium text-gray-300 hover:text-white";
+            });
+
+            if (currentMode === 'featured') {
+                featuredBtn.className = "px-3 py-1 rounded transition-colors font-medium text-white bg-brand-accent";
+            } else if (currentMode === 'all') {
+                allBtn.className = "px-3 py-1 rounded transition-colors font-medium text-white bg-brand-accent";
+            } else if (currentMode === 'custom') {
+                customBtn.className = "px-3 py-1 rounded transition-colors font-medium text-white bg-brand-accent";
+            }
+        }
+
+        // 展開/收合自選分類
+        function toggleCustomFilter() {
+            const panel = document.getElementById('custom-filter-panel');
+            panel.classList.toggle('hidden');
+            if (!panel.classList.contains('hidden')) {
+                currentMode = 'custom';
+                updateModeButtons();
+            }
+        }
+
+        // 初始化分類 Checkbox
+        function initCategoryCheckboxes() {
+            const container = document.getElementById('category-checkboxes');
+            container.innerHTML = Object.keys(categoryMeta).map(cat => `
+                <label class="inline-flex items-center gap-1.5 text-xs text-gray-200 cursor-pointer select-none">
+                    <input type="checkbox" value="${cat}" class="cat-checkbox rounded text-brand-accent focus:ring-0" ${selectedCategories.includes(cat) ? 'checked' : ''}>
+                    <span>${cat}</span>
+                </label>
+            `).join('');
+        }
+
+        function selectAllCategories(val) {
+            document.querySelectorAll('.cat-checkbox').forEach(cb => cb.checked = val);
+        }
+
+        function applyCustomFilter() {
+            const checked = Array.from(document.querySelectorAll('.cat-checkbox:checked')).map(cb => cb.value);
+            if (checked.length === 0) {
+                alert('請至少勾選一個分類！');
+                return;
+            }
+            selectedCategories = checked;
+            currentMode = 'custom';
+            updateModeButtons();
+            renderAllPages();
+        }
+
+        // 核心渲染邏輯
+        function renderAllPages() {
+            const container = document.getElementById('pages-container');
+            container.innerHTML = '';
+
+            // 1. 決定要渲染的專案列表
+            let projectsToRender = [];
+            if (currentMode === 'featured') {
+                projectsToRender = portfolioData.filter(p => featuredProjectIds.includes(p.id));
+            } else if (currentMode === 'all') {
+                projectsToRender = [...portfolioData];
+            } else { // custom
+                projectsToRender = portfolioData.filter(p => selectedCategories.includes(p.category));
+            }
+
+            // 依分類分組
+            const grouped = {};
+            projectsToRender.forEach(p => {
+                if (!grouped[p.category]) grouped[p.category] = [];
+                grouped[p.category].push(p);
+            });
+
+            // 統計總圖片數
+            let totalMediaCount = 0;
+            projectsToRender.forEach(p => totalMediaCount += (p.items || []).length);
+
+            // 2. 建立封面
+            container.appendChild(createCoverPage(projectsToRender.length, totalMediaCount));
+
+            // 3. 建立個人經歷與目錄頁
+            container.appendChild(createAboutTOCPage(grouped));
+
+            // 4. 建立各分類扉頁與專案內頁
+            Object.keys(grouped).forEach((cat, catIdx) => {
+                const projects = grouped[cat];
+                if (!projects || projects.length === 0) return;
+
+                // 分類扉頁（精選推薦版不插入滿版扉頁，直接呈現專案內頁以保持精煉無負擔）
+                if (currentMode !== 'featured') {
+                    container.appendChild(createCategoryDividerPage(cat, catIdx + 1, projects.length));
+                }
+
+                // 專案內頁
+                // 針對 EDM 進行特殊分組：每 2 個 EDM 合併為一頁，節省版面並呈現成對展示
+                if (cat === 'EDM') {
+                    for (let i = 0; i < projects.length; i += 2) {
+                        const pair = projects.slice(i, i + 2);
+                        container.appendChild(createEdmPairPage(pair, cat));
+                    }
+                } else {
+                    projects.forEach(project => {
+                        container.appendChild(createProjectPage(project));
+                    });
+                }
+            });
+
+            // 5. 建立封底
+            container.appendChild(createBackCoverPage());
+
+            // 6. 更新所有頁碼與頁尾
+            updatePageNumbers();
+
+            // 7. 更新狀態列
+            const pageElements = document.querySelectorAll('.a4-page');
+            document.getElementById('page-stat-badge').textContent = `共 ${pageElements.length} 頁 · 包含 ${projectsToRender.length} 個專案 (${totalMediaCount} 件作品圖)`;
+        }
+
+        // 頁面 1：封面
+        function createCoverPage(projectCount, mediaCount) {
+            const page = document.createElement('div');
+            page.className = 'a4-page justify-between';
+            page.innerHTML = `
+                <!-- 頂部裝飾標記 -->
+                <div class="flex justify-between items-center text-xs tracking-[0.25em] text-brand-muted uppercase border-b border-gray-200 pb-4">
+                    <span>Essie Yu Portfolio Archive</span>
+                    <span>Visual Communication & Strategy</span>
+                    <span>2024 — 2026</span>
+                </div>
+
+                <!-- 核心標題區塊 (優雅大器) -->
+                <div class="my-auto max-w-4xl">
+                    <span class="inline-block px-3 py-1 bg-brand-accent/15 text-brand-accent text-xs font-semibold tracking-widest uppercase mb-6 rounded-none">
+                        Graphic Design · Key Visual · Social Media · Brand Identity
+                    </span>
+                    <h1 class="text-6xl lg:text-7xl font-serif font-bold text-brand-text leading-[1.1] mb-6">
+                        Essie Yu<span class="text-brand-accent">.</span><br>
+                        <span class="text-3xl lg:text-4xl font-normal font-sans tracking-wide text-gray-700">游佳柔 設計作品集</span>
+                    </h1>
+                    <div class="w-20 h-[3px] bg-brand-accent mb-6"></div>
+                    <p class="text-lg text-gray-600 font-light leading-relaxed max-w-2xl">
+                        世新傳播管理背景。在傳播邏輯中探索視覺美學的設計實踐者。<br>
+                        榮獲 2025 國際金犢獎入圍、世鑫獎入圍。專注於商業主視覺、品牌識別系統與數位社群視覺設計。
+                    </p>
+                </div>
+
+                <!-- 底部統計標籤與日期 -->
+                <div class="border-t border-gray-200 pt-6 flex justify-between items-end text-xs text-brand-muted">
+                    <div>
+                        <span class="block uppercase tracking-widest text-[10px] text-gray-400 mb-1">Archived Works</span>
+                        <span class="text-sm font-serif font-bold text-brand-text">${projectCount} Projects / ${mediaCount}+ Artwork Assets</span>
+                    </div>
+                    <div class="text-center hidden sm:block">
+                        <span class="block uppercase tracking-widest text-[10px] text-gray-400 mb-1">Awards & Recognition</span>
+                        <span class="text-sm font-medium text-brand-accent">2025 國際金犢獎入圍 · 世鑫獎入圍</span>
+                    </div>
+                    <div class="text-right">
+                        <span class="block uppercase tracking-widest text-[10px] text-gray-400 mb-1">Direct Contact</span>
+                        <span class="text-sm font-mono text-brand-text">carol.yu901223@gmail.com</span>
+                    </div>
+                </div>
+            `;
+            return page;
+        }
+
+        // 頁面 2：個人簡歷與目錄
+        function createAboutTOCPage(grouped) {
+            const page = document.createElement('div');
+            page.className = 'a4-page justify-between';
+            
+            const cats = Object.keys(grouped);
+            const tocItemsHtml = cats.map((cat, idx) => {
+                const meta = categoryMeta[cat] || { en: cat, tagline: '' };
+                const count = grouped[cat].length;
+                return `
+                    <div class="flex items-baseline justify-between border-b border-gray-200/80 py-2.5">
+                        <div class="flex items-baseline gap-3">
+                            <span class="font-serif font-bold text-brand-accent text-sm">0${idx + 1}</span>
+                            <div>
+                                <span class="font-medium text-brand-text text-sm">${cat}</span>
+                                <span class="text-[11px] text-gray-400 font-serif ml-2 uppercase tracking-wider">${meta.en}</span>
+                            </div>
+                        </div>
+                        <span class="text-xs font-mono text-gray-500 bg-gray-100 px-2 py-0.5 rounded">${count} 件專案</span>
+                    </div>
+                `;
+            }).join('');
+
+            page.innerHTML = `
+                ${getHeaderHtml('Overview & Contents', '簡介與收錄目錄')}
+
+                <div class="grid grid-cols-12 gap-8 my-auto h-full items-center pt-2 pb-2">
+                    <!-- 左側：個人經歷與優勢 -->
+                    <div class="col-span-5 pr-6 border-r border-gray-200 flex flex-col justify-between h-full">
+                        <div>
+                            <h2 class="text-xs font-bold tracking-[0.2em] text-brand-muted uppercase mb-4">About Designer</h2>
+                            <h3 class="text-2xl font-serif font-bold text-brand-text mb-3">游佳柔 Essie Yu</h3>
+                            <p class="text-xs text-gray-600 font-light leading-relaxed mb-6">
+                                畢業於世新大學傳播管理學系。具備扎實的傳播理論背景與行銷思維，擅長將抽象策略化為具感染力的視覺語言。
+                            </p>
+
+                            <div class="space-y-4">
+                                <div class="bg-white p-3 border border-gray-100 shadow-sm">
+                                    <h4 class="text-xs font-bold text-brand-text flex items-center gap-1.5 mb-1">
+                                        <i class="ph-fill ph-medal text-brand-accent"></i> 競賽與展演肯定
+                                    </h4>
+                                    <p class="text-[11px] text-gray-500 leading-normal">
+                                        • 2025 國際金犢獎 入圍<br>
+                                        • 世鑫獎 入圍<br>
+                                        • 2026 ADA ISDW 台日韓國際學生設計工作營 (TIDA)
+                                    </p>
+                                </div>
+
+                                <div class="bg-white p-3 border border-gray-100 shadow-sm">
+                                    <h4 class="text-xs font-bold text-brand-text flex items-center gap-1.5 mb-1">
+                                        <i class="ph-fill ph-cpu text-brand-accent"></i> 專業工具技能
+                                    </h4>
+                                    <p class="text-[11px] text-gray-500 leading-normal">
+                                        Adobe Illustrator · Photoshop · Premiere Pro · After Effects · Figma
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="text-[11px] text-gray-400 font-mono pt-4 border-t border-gray-100">
+                            Taipei, Taiwan · carol.yu901223@gmail.com
+                        </div>
+                    </div>
+
+                    <!-- 右側：目錄列表 -->
+                    <div class="col-span-7 flex flex-col justify-between h-full">
+                        <div>
+                            <div class="flex items-center justify-between mb-4">
+                                <h2 class="text-xs font-bold tracking-[0.2em] text-brand-muted uppercase">Table of Contents</h2>
+                                <span class="text-[11px] text-brand-accent font-medium">收錄章節一覽</span>
+                            </div>
+                            <div class="space-y-1">
+                                ${tocItemsHtml}
+                            </div>
+                        </div>
+
+                        <div class="bg-brand-accent/10 p-3 rounded text-[11px] text-brand-text/80 flex items-center gap-2 mt-4">
+                            <i class="ph-fill ph-check-circle text-brand-accent text-base"></i>
+                            <span>本作品集內所有專案皆由游佳柔負責視覺發想、排版與製作，完整高清檔案可於線上網站檢視。</span>
+                        </div>
+                    </div>
+                </div>
+
+                ${getFooterHtml()}
+            `;
+            return page;
+        }
+
+        // 分類扉頁 (Section Divider)
+        function createCategoryDividerPage(category, number, count) {
+            const meta = categoryMeta[category] || { en: category, tagline: '', desc: '' };
+            const page = document.createElement('div');
+            page.className = 'a4-page justify-between bg-[#1C1C1C] text-white';
+            page.style.backgroundColor = '#1C1C1C';
+
+            page.innerHTML = `
+                <div class="flex justify-between items-center text-xs tracking-[0.25em] text-gray-400 uppercase border-b border-gray-800 pb-4">
+                    <span>Section 0${number}</span>
+                    <span>Essie Yu Portfolio</span>
+                    <span>${count} Projects</span>
+                </div>
+
+                <div class="my-auto max-w-3xl">
+                    <div class="text-6xl font-serif font-bold text-brand-accent mb-4 opacity-90">
+                        0${number}
+                    </div>
+                    <span class="text-xs font-serif tracking-[0.3em] uppercase text-gray-400 block mb-2">
+                        ${meta.en}
+                    </span>
+                    <h2 class="text-5xl font-serif font-bold text-white mb-6">
+                        ${category}
+                    </h2>
+                    <div class="w-16 h-[2px] bg-brand-accent mb-6"></div>
+                    <h3 class="text-base font-medium text-brand-accent mb-3">
+                        ${meta.tagline}
+                    </h3>
+                    <p class="text-sm text-gray-300 font-light leading-relaxed max-w-xl">
+                        ${meta.desc}
+                    </p>
+                </div>
+
+                <div class="border-t border-gray-800 pt-4 flex justify-between items-center text-xs text-gray-500">
+                    <span>游佳柔 作品集 · ${category}</span>
+                    <span>Essie Yu Visual Archive</span>
+                </div>
+            `;
+            return page;
+        }
+
+        // 專案作品內頁
+        function createProjectPage(project) {
+            const page = document.createElement('div');
+            page.className = 'a4-page justify-between';
+
+            const items = project.items || [];
+            const meta = categoryMeta[project.category] || { en: project.category };
+
+            // 根據圖片數量採取最佳排版
+            let visualContentHtml = '';
+
+            if (project.coverType === 'video' || project.category === '影片') {
+                // 影片專案
+                visualContentHtml = `
+                    <div class="w-full h-full flex flex-col items-center justify-center bg-gray-900 rounded-lg p-6 text-white text-center shadow-inner relative overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/40"></div>
+                        <i class="ph-fill ph-play-circle text-6xl text-brand-accent mb-4 z-10 animate-pulse"></i>
+                        <h4 class="text-lg font-serif font-bold z-10 mb-2">${project.title}</h4>
+                        <span class="text-xs text-gray-300 z-10 font-mono tracking-wider mb-4">動態影像 / Reels 創作</span>
+                        <div class="z-10 bg-white/10 backdrop-blur-md px-4 py-2 rounded text-xs text-gray-200 border border-white/20">
+                            🔗 本專案為動態影片，歡迎至線上作品集網站點擊播放觀看
+                        </div>
+                    </div>
+                `;
+            } else if (items.length === 1) {
+                // 單圖展示 (如海報、包裝主視覺)
+                const img = items[0];
+                visualContentHtml = `
+                    <div class="w-full h-full flex items-center justify-center bg-white p-2 border border-gray-100 shadow-sm rounded">
+                        <img src="${img.srcFull || img.srcThumb}" alt="${project.title}" class="fit-img rounded shadow-md max-h-[160mm]">
+                    </div>
+                `;
+            } else if (items.length === 2) {
+                // 雙圖水平並列
+                visualContentHtml = `
+                    <div class="w-full h-full grid grid-cols-2 gap-4 items-center justify-center">
+                        ${items.map(item => `
+                            <div class="w-full h-full flex items-center justify-center bg-white p-2 border border-gray-100 shadow-sm rounded">
+                                <img src="${item.srcFull || item.srcThumb}" alt="${project.title}" class="fit-img rounded shadow-sm max-h-[160mm]">
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            } else if (items.length <= 4) {
+                // 3~4 圖 2x2 網格
+                visualContentHtml = `
+                    <div class="w-full h-full grid grid-cols-2 gap-3 items-center justify-center">
+                        ${items.map(item => `
+                            <div class="w-full h-[76mm] flex items-center justify-center bg-white p-1.5 border border-gray-100 shadow-sm rounded">
+                                <img src="${item.srcFull || item.srcThumb}" alt="${project.title}" class="fit-img rounded">
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            } else {
+                // 5 張以上 (如安視優 9 張、朵蔓 5 張、烈火特會 16 張)
+                // 首圖大圖 + 右側精選 4~6 張輪播縮圖
+                const heroImg = items[0];
+                const subItems = items.slice(1, 7); // 取最多 6 張代表
+                const remainingCount = items.length - 1 - subItems.length;
+
+                visualContentHtml = `
+                    <div class="w-full h-full grid grid-cols-12 gap-4 items-center">
+                        <!-- 主圖 (佔 7 欄) -->
+                        <div class="col-span-7 h-full flex items-center justify-center bg-white p-2 border border-gray-100 shadow-sm rounded">
+                            <img src="${heroImg.srcFull || heroImg.srcThumb}" alt="${project.title}" class="fit-img rounded shadow-md max-h-[160mm]">
+                        </div>
+                        <!-- 系列子圖縮圖網格 (佔 5 欄) -->
+                        <div class="col-span-5 h-full flex flex-col justify-between">
+                            <div class="grid grid-cols-2 gap-2">
+                                ${subItems.map(item => `
+                                    <div class="h-[46mm] bg-white p-1 border border-gray-100 shadow-sm rounded flex items-center justify-center overflow-hidden">
+                                        <img src="${item.srcFull || item.srcThumb}" alt="${project.title}" class="fit-img rounded">
+                                    </div>
+                                `).join('')}
+                            </div>
+                            ${remainingCount > 0 ? `
+                                <div class="text-right text-[10px] text-brand-muted font-mono pt-1">
+                                    + 另有 ${remainingCount} 張系列作品，完整內容收錄於線上作品集
+                                </div>
+                            ` : ''}
+                        </div>
+                    </div>
+                `;
+            }
+
+            page.innerHTML = `
+                ${getHeaderHtml(project.category, meta.en)}
+
+                <div class="grid grid-cols-12 gap-8 my-auto h-[162mm] items-center">
+                    <!-- 左側：專案資訊與傳播思維 (3.5 欄) -->
+                    <div class="col-span-4 flex flex-col justify-between h-full pr-4 border-r border-gray-200">
+                        <div>
+                            <div class="flex items-center gap-2 mb-3">
+                                <span class="px-2.5 py-0.5 bg-brand-accent/15 text-brand-accent text-[11px] font-semibold tracking-wider uppercase rounded">
+                                    ${project.category}
+                                </span>
+                                <span class="text-[11px] font-mono text-gray-400">
+                                    ${items.length} 頁圖檔
+                                </span>
+                            </div>
+
+                            <h3 class="text-2xl font-serif font-bold text-brand-text mb-4 leading-snug">
+                                ${project.title}
+                            </h3>
+
+                            <div class="space-y-4 text-xs">
+                                ${project.role ? `
+                                    <div>
+                                        <span class="block text-[10px] uppercase font-bold tracking-widest text-brand-muted mb-1">
+                                            擔任角色 / 範疇
+                                        </span>
+                                        <p class="font-medium text-brand-text">
+                                            ${project.role}
+                                        </p>
+                                    </div>
+                                ` : ''}
+
+                                <div>
+                                    <span class="block text-[10px] uppercase font-bold tracking-widest text-brand-muted mb-1">
+                                        傳播邏輯與設計策略
+                                    </span>
+                                    <p class="text-gray-600 font-light leading-relaxed text-justify">
+                                        ${project.context || '以受眾心理與傳播效益為出發點，精準梳理視覺焦點與層級結構，在符合品牌調性的前提下極大化溝通感染力。'}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 底部微標籤 -->
+                        <div class="pt-4 border-t border-gray-100 flex items-center justify-between text-[10px] text-gray-400">
+                            <span>游佳柔 設計作品</span>
+                            <span class="font-mono">PROJECT NO. ${project.id}</span>
+                        </div>
+                    </div>
+
+                    <!-- 右側：高解析視覺展演 (8.5 欄) -->
+                    <div class="col-span-8 h-full flex items-center justify-center overflow-hidden">
+                        ${visualContentHtml}
+                    </div>
+                </div>
+
+                ${getFooterHtml()}
+            `;
+            return page;
+        }
+
+        // EDM 專案成對展示頁 (每頁放 2 件 EDM，排版超乾淨)
+        function createEdmPairPage(pair, category) {
+            const page = document.createElement('div');
+            page.className = 'a4-page justify-between';
+            const meta = categoryMeta[category] || { en: category };
+
+            page.innerHTML = `
+                ${getHeaderHtml(category, meta.en)}
+
+                <div class="grid grid-cols-2 gap-8 my-auto h-[162mm] items-center">
+                    ${pair.map(project => {
+                        const img = (project.items && project.items[0]) ? project.items[0] : null;
+                        return `
+                            <div class="flex flex-col h-full justify-between bg-white p-3 border border-gray-100 shadow-sm rounded">
+                                <!-- 圖片區 -->
+                                <div class="h-[125mm] w-full flex items-center justify-center overflow-hidden p-1">
+                                    ${img ? `
+                                        <img src="${img.srcFull || img.srcThumb}" alt="${project.title}" class="fit-img rounded shadow-sm max-h-[120mm]">
+                                    ` : '<div class="text-gray-400 text-xs">無圖片</div>'}
+                                </div>
+                                <!-- 標題與說明 -->
+                                <div class="pt-2 border-t border-gray-100 mt-2 flex items-baseline justify-between">
+                                    <div>
+                                        <span class="text-[10px] font-semibold text-brand-accent tracking-wider uppercase block">EDM 文宣設計</span>
+                                        <h4 class="text-sm font-serif font-bold text-brand-text truncate max-w-[90mm]">${project.title}</h4>
+                                    </div>
+                                    <span class="text-[10px] font-mono text-gray-400">NO. ${project.id}</span>
+                                </div>
+                            </div>
+                        `;
+                    }).join('')}
+                </div>
+
+                ${getFooterHtml()}
+            `;
+            return page;
+        }
+
+        // 頁面 尾頁：封底 (Back Cover)
+        function createBackCoverPage() {
+            const page = document.createElement('div');
+            page.className = 'a4-page justify-between bg-[#1C1C1C] text-white';
+            page.style.backgroundColor = '#1C1C1C';
+
+            page.innerHTML = `
+                <div class="flex justify-between items-center text-xs tracking-[0.25em] text-gray-400 uppercase border-b border-gray-800 pb-4">
+                    <span>Thank You</span>
+                    <span>游佳柔 個人作品集</span>
+                    <span>End of Archive</span>
+                </div>
+
+                <div class="my-auto max-w-2xl text-center mx-auto">
+                    <span class="text-brand-accent text-xs font-mono tracking-[0.3em] uppercase block mb-4">
+                        LET'S CREATE SOMETHING GREAT
+                    </span>
+                    <h2 class="text-4xl lg:text-5xl font-serif font-bold text-white mb-6 leading-tight">
+                        期待與您攜手合作，<br>創造更多有溫度的設計可能。
+                    </h2>
+                    <div class="w-16 h-[2px] bg-brand-accent mx-auto mb-8"></div>
+                    
+                    <div class="bg-white/5 border border-white/10 p-6 rounded-lg max-w-lg mx-auto space-y-3 text-xs text-gray-300">
+                        <div class="flex items-center justify-between">
+                            <span class="text-gray-400">Email</span>
+                            <a href="mailto:carol.yu901223@gmail.com" class="text-white hover:text-brand-accent font-mono">carol.yu901223@gmail.com</a>
+                        </div>
+                        <div class="flex items-center justify-between border-t border-white/5 pt-3">
+                            <span class="text-gray-400">Live Website</span>
+                            <span class="text-brand-accent font-mono">游佳柔 線上作品集</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="border-t border-gray-800 pt-4 flex justify-between items-center text-xs text-gray-500">
+                    <span>© 2026 Essie Yu. All rights reserved.</span>
+                    <span>Designed with Strategy & Aesthetics</span>
+                </div>
+            `;
+            return page;
+        }
+
+        // 通用頁首 Header
+        function getHeaderHtml(title, sub) {
+            return `
+                <div class="flex justify-between items-center text-[10px] tracking-widest text-brand-muted uppercase border-b border-gray-200 pb-2.5">
+                    <div class="flex items-center gap-2">
+                        <span class="font-serif font-bold text-brand-text text-xs">ESSIE YU</span>
+                        <span class="text-gray-300">/</span>
+                        <span class="text-brand-accent font-medium">${title}</span>
+                    </div>
+                    <div class="text-gray-400 font-serif">
+                        ${sub || 'DESIGN ARCHIVE'}
+                    </div>
+                </div>
+            `;
+        }
+
+        // 通用頁尾 Footer (附帶頁碼佔位標籤)
+        function getFooterHtml() {
+            return `
+                <div class="flex justify-between items-center text-[10px] text-gray-400 border-t border-gray-200 pt-2.5 font-mono">
+                    <div>
+                        <span>carol.yu901223@gmail.com</span>
+                        <span class="mx-2 text-gray-300">|</span>
+                        <span>Essie Yu Portfolio</span>
+                    </div>
+                    <div class="page-number-display">
+                        Page --
+                    </div>
+                </div>
+            `;
+        }
+
+        // 動態更新所有頁面底部的頁碼
+        function updatePageNumbers() {
+            const pages = document.querySelectorAll('.a4-page');
+            const total = pages.length;
+            pages.forEach((page, index) => {
+                const numElem = page.querySelector('.page-number-display');
+                if (numElem) {
+                    numElem.textContent = `${index + 1} / ${total}`;
+                }
+            });
+        }
+
+        // 初始化
+        window.addEventListener('DOMContentLoaded', () => {
+            initFromUrl();
+            initCategoryCheckboxes();
+            updateModeButtons();
+            renderAllPages();
+        });
+    </script>
+</body>
+</html>
+
